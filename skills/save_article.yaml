@@ -1,0 +1,7 @@
+name: save_article
+description: Download, summarize, save to second-brain, and index web articles or links
+version: "1.0.0"
+author: OpenYF
+tags: [link, article, download, second-brain, index, memory]
+trust_level: core
+trigger: save link download article second-brain store URL webpage index book wiki

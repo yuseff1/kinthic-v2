@@ -1,0 +1,7 @@
+name: repo_researcher
+description: Structured repository research and architecture summary
+version: "1.0.0"
+author: OpenYF
+tags: [code, research, bundled]
+trust_level: core
+trigger: research repo codebase architecture

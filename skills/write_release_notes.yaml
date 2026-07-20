@@ -1,0 +1,7 @@
+name: write_release_notes
+description: Generate release notes from git history and changelogs
+version: "1.0.0"
+author: OpenYF
+tags: [writing, bundled]
+trust_level: core
+trigger: release notes changelog version

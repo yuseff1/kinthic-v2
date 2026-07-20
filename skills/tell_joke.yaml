@@ -1,0 +1,7 @@
+name: tell_joke
+description: Multi-step dry/sarcastic joke delivery workflow
+version: "1.0.0"
+author: OpenYF
+tags: [humor, bundled]
+trust_level: core
+trigger: tell joke funny humor

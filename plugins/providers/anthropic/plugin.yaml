@@ -1,0 +1,128 @@
+name: anthropic
+display_name: Anthropic
+env_vars:
+- ANTHROPIC_API_KEY
+api_mode: anthropic_native
+description: Anthropic Claude Models
+signup_url: https://console.anthropic.com/
+fallback_models:
+- id: claude-sonnet-5
+  label: 'Anthropic: Claude Sonnet 5'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: claude-fable-5
+  label: 'Anthropic: Claude Fable 5'
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-opus-4.8-fast
+  label: 'Anthropic: Claude Opus 4.8 (Fast)'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-opus-4.8
+  label: 'Anthropic: Claude Opus 4.8'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-opus-4.7-fast
+  label: 'Anthropic: Claude Opus 4.7 (Fast)'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-opus-4.7
+  label: 'Anthropic: Claude Opus 4.7'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-sonnet-4.6
+  label: 'Anthropic: Claude Sonnet 4.6'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-opus-4.6
+  label: 'Anthropic: Claude Opus 4.6'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-opus-4.5
+  label: 'Anthropic: Claude Opus 4.5'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 200000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-haiku-4.5
+  label: 'Anthropic: Claude Haiku 4.5'
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 200000
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: claude-sonnet-4.5
+  label: 'Anthropic: Claude Sonnet 4.5'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-opus-4.1
+  label: 'Anthropic: Claude Opus 4.1'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 200000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-opus-4
+  label: 'Anthropic: Claude Opus 4'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 200000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-sonnet-4
+  label: 'Anthropic: Claude Sonnet 4'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1000000
+  recommended_for: general tasks
+  estimated_cost: high
+- id: claude-3-haiku
+  label: 'Anthropic: Claude 3 Haiku'
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 200000
+  recommended_for: general tasks
+  estimated_cost: low

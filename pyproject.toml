@@ -1,0 +1,100 @@
+[project]
+name = "kinthic"
+version = "2.0.0-dev"
+description = "kinthic v2 — local-first AI agent powered by the Silex memory engine."
+readme = "README.md"
+license = {text = "AGPL-3.0-or-later"}
+requires-python = ">=3.11"
+authors = [
+    { name = "Youssef El Fajlaoui" },
+]
+maintainers = [
+    { name = "Youssef El Fajlaoui" },
+]
+keywords = ["ai-agent", "local-first", "knowledge-graph", "llm", "autonomy", "telegram", "tools", "memory"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+dependencies = [
+    "google-genai>=1.0.0",
+    "pydantic>=2.0",
+    "rich>=13.0",
+    "python-dotenv>=1.0",
+    "aiosqlite>=0.20.0",
+    "aiofiles>=24.0",
+    "networkx>=3.0",
+    "chromadb>=0.5",
+    "mcp>=1.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+    "ddgs>=9.0.0",
+    "python-telegram-bot>=21.0",
+    "openai>=1.79.0",
+    "anthropic>=0.52.0",
+    "docker>=7.0",
+    "httpx>=0.27",
+    "watchdog>=4.0",
+    "opentelemetry-api>=1.20.0",
+    "opentelemetry-sdk>=1.20.0",
+    "psutil>=5.9.0",
+    "beautifulsoup4>=4.12.0",
+    "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+browser = [
+    "playwright>=1.45",
+    "playwright-stealth>=1.0",
+    "html2text>=2024.2.26",
+]
+discord = [
+    "discord.py>=2.3",
+]
+
+[project.scripts]
+kinthic = "scripts.cli:main"
+kinthic-telegram = "scripts.telegram_bot:main"
+kinthic-discord = "scripts.discord_bot:main"
+silex-engine = "silex_engine.__main__:main"
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+py-modules = []
+
+[tool.setuptools.packages.find]
+include = ["silex_engine*", "silex_core*", "agent*", "scripts*", "plugins*"]
+exclude = ["kinthic-dashboard*", "kinthic-ink-ui*", "tests*", "benchmarks*"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F"]
+ignore = [
+    "E402",  
+    "E741",  
+    "E501",  
+    "F401",  
+    "F841",  
+    "F821",  
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

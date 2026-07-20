@@ -1,0 +1,32 @@
+{
+  "name": "kinthic-ink-ui",
+  "version": "1.0.0",
+  "description": "Premium Ink/React terminal interface for the Kinthic AI operator CLI.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "kinthic-ink": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc --noEmit false",
+    "dev": "tsx src/index.tsx",
+    "demo": "tsx src/index.tsx --demo",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --import tsx --test src/**/*.test.ts"
+  },
+  "dependencies": {
+    "ink": "^5.1.0",
+    "ink-spinner": "^5.0.0",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

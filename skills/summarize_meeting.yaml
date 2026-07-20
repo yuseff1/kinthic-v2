@@ -1,0 +1,7 @@
+name: summarize_meeting
+description: Summarize meeting notes into action items and decisions
+version: "1.0.0"
+author: OpenYF
+tags: [writing, bundled]
+trust_level: core
+trigger: meeting notes summary action items

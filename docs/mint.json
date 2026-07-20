@@ -1,0 +1,80 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Kinthic",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#4338ca",
+    "light": "#818cf8",
+    "dark": "#312e81"
+  },
+  "topbarLinks": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/openyfai/kinthic"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Get Started",
+    "url": "https://docs.kinthic.com/quickstart"
+  },
+  "tabs": [
+    {
+      "name": "Documentation",
+      "url": "/"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "quickstart"
+      ]
+    },
+    {
+      "group": "Core Concepts",
+      "pages": [
+        "architecture",
+        "orchestration",
+        "sandboxing"
+      ]
+    },
+    {
+      "group": "Guides & Setup",
+      "pages": [
+        "wsl-setup",
+        "migration",
+        "telegram-guide",
+        "vps-telegram"
+      ]
+    },
+    {
+      "group": "Developer Hub",
+      "pages": [
+        "PLUGIN_DEVELOPMENT",
+        "kinthichub-registry-spec"
+      ]
+    },
+    {
+      "group": "Operations",
+      "pages": [
+        "tui-operator-guide",
+        "performance",
+        "COMMUNITY"
+      ]
+    },
+    {
+      "group": "Reference",
+      "pages": [
+        "cli_reference",
+        "mcp"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/openyfai/kinthic"
+  }
+}

@@ -1,0 +1,236 @@
+name: gemini
+display_name: Google Gemini
+env_vars:
+- GEMINI_API_KEY
+api_mode: gemini_native
+aliases:
+- google
+- google-gemini
+description: Google AI Studio Gemini Models
+signup_url: https://aistudio.google.com/
+base_url: https://generativelanguage.googleapis.com/v1beta
+fallback_models:
+- id: gemini-3.1-flash-lite-image
+  label: 'Google: Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image)'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 65536
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-3.1-flash-image
+  label: 'Google: Nano Banana 2 (Gemini 3.1 Flash Image)'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 131072
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-3-pro-image
+  label: 'Google: Nano Banana Pro (Gemini 3 Pro Image)'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 65536
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: gemini-3.5-flash
+  label: 'Google: Gemini 3.5 Flash'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: gemini-3.1-flash-lite
+  label: 'Google: Gemini 3.1 Flash Lite'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemma-4-26b-a4b-it
+  label: 'Google: Gemma 4 26B A4B '
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 262144
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemma-4-26b-a4b-it:free
+  label: 'Google: Gemma 4 26B A4B  (free)'
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 262144
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemma-4-31b-it
+  label: 'Google: Gemma 4 31B'
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 262144
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemma-4-31b-it:free
+  label: 'Google: Gemma 4 31B (free)'
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 262144
+  recommended_for: general tasks
+  estimated_cost: low
+- id: lyria-3-pro-preview
+  label: 'Google: Lyria 3 Pro Preview'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: low
+- id: lyria-3-clip-preview
+  label: 'Google: Lyria 3 Clip Preview'
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-3.1-flash-lite-preview
+  label: 'Google: Gemini 3.1 Flash Lite Preview'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-3.1-flash-image-preview
+  label: 'Google: Nano Banana 2 (Gemini 3.1 Flash Image Preview)'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 131072
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-3.1-pro-preview-customtools
+  label: 'Google: Gemini 3.1 Pro Preview Custom Tools'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1048756
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: gemini-3.1-pro-preview
+  label: 'Google: Gemini 3.1 Pro Preview'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: gemini-3-flash-preview
+  label: 'Google: Gemini 3 Flash Preview'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-3-pro-image-preview
+  label: 'Google: Nano Banana Pro (Gemini 3 Pro Image Preview)'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 65536
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: gemini-2.5-flash-image
+  label: 'Google: Nano Banana (Gemini 2.5 Flash Image)'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 32768
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-2.5-flash-lite
+  label: 'Google: Gemini 2.5 Flash Lite'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-2.5-flash
+  label: 'Google: Gemini 2.5 Flash'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-2.5-pro
+  label: 'Google: Gemini 2.5 Pro'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: gemini-2.5-pro-preview
+  label: 'Google: Gemini 2.5 Pro Preview 06-05'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: gemma-3n-e4b-it
+  label: 'Google: Gemma 3n 4B'
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 32768
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemini-2.5-pro-preview-05-06
+  label: 'Google: Gemini 2.5 Pro Preview 05-06'
+  tier: reasoning
+  supports_images: false
+  supports_structured_json: true
+  context_window: 1048576
+  recommended_for: general tasks
+  estimated_cost: medium
+- id: gemma-3-4b-it
+  label: 'Google: Gemma 3 4B'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 131072
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemma-3-12b-it
+  label: 'Google: Gemma 3 12B'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 131072
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemma-3-27b-it
+  label: 'Google: Gemma 3 27B'
+  tier: fast
+  supports_images: true
+  supports_structured_json: true
+  context_window: 131072
+  recommended_for: general tasks
+  estimated_cost: low
+- id: gemma-2-27b-it
+  label: 'Google: Gemma 2 27B'
+  tier: fast
+  supports_images: false
+  supports_structured_json: true
+  context_window: 8192
+  recommended_for: general tasks
+  estimated_cost: medium

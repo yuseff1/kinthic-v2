@@ -1,0 +1,2706 @@
+profiles:
+- name: gryphe
+  display_name: Gryphe
+  env_vars:
+  - GRYPHE_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: mythomax-l2-13b
+    label: MythoMax 13B
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 4096
+    recommended_for: general tasks
+    estimated_cost: low
+- name: undi95
+  display_name: Undi95
+  env_vars:
+  - UNDI95_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: remm-slerp-l2-13b
+    label: ReMM SLERP 13B
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 6144
+    recommended_for: general tasks
+    estimated_cost: low
+- name: mancer
+  display_name: Mancer
+  env_vars:
+  - MANCER_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: weaver
+    label: 'Mancer: Weaver (alpha)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 8000
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: inflection
+  display_name: Inflection
+  env_vars:
+  - INFLECTION_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: inflection-3-pi
+    label: 'Inflection: Inflection 3 Pi'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 8000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: inflection-3-productivity
+    label: 'Inflection: Inflection 3 Productivity'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 8000
+    recommended_for: general tasks
+    estimated_cost: high
+- name: anthracite-org
+  display_name: Anthracite-org
+  env_vars:
+  - ANTHRACITEORG_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: magnum-v4-72b
+    label: Magnum v4 72B
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 32768
+    recommended_for: general tasks
+    estimated_cost: high
+- name: sao10k
+  display_name: Sao10k
+  env_vars:
+  - SAO10K_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: l3.3-euryale-70b
+    label: 'Sao10K: Llama 3.3 Euryale 70B'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: l3.1-euryale-70b
+    label: 'Sao10K: Llama 3.1 Euryale 70B v2.2'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: l3-lunaris-8b
+    label: 'Sao10K: Llama 3 8B Lunaris'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 8192
+    recommended_for: general tasks
+    estimated_cost: low
+- name: microsoft
+  display_name: Microsoft
+  env_vars:
+  - MICROSOFT_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: phi-4
+    label: 'Microsoft: Phi 4'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 16384
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: wizardlm-2-8x22b
+    label: WizardLM-2 8x22B
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 65536
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: meta
+  display_name: Meta
+  env_vars:
+  - META_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: llama-guard-4-12b
+    label: 'Meta: Llama Guard 4 12B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 163840
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-4-maverick
+    label: 'Meta: Llama 4 Maverick'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-4-scout
+    label: 'Meta: Llama 4 Scout'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 10000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-3.3-70b-instruct
+    label: 'Meta: Llama 3.3 70B Instruct'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-3.3-70b-instruct:free
+    label: 'Meta: Llama 3.3 70B Instruct (free)'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-3.2-11b-vision-instruct
+    label: 'Meta: Llama 3.2 11B Vision Instruct'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-3.2-1b-instruct
+    label: 'Meta: Llama 3.2 1B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-3.2-3b-instruct
+    label: 'Meta: Llama 3.2 3B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-3.2-3b-instruct:free
+    label: 'Meta: Llama 3.2 3B Instruct (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-3.1-70b-instruct
+    label: 'Meta: Llama 3.1 70B Instruct'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-3.1-8b-instruct
+    label: 'Meta: Llama 3.1 8B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+- name: baidu
+  display_name: Baidu
+  env_vars:
+  - BAIDU_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: ernie-4.5-vl-424b-a47b
+    label: 'Baidu: ERNIE 4.5 VL 424B A47B '
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+- name: morph
+  display_name: Morph
+  env_vars:
+  - MORPH_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: morph-v3-large
+    label: 'Morph: Morph V3 Large'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: morph-v3-fast
+    label: 'Morph: Morph V3 Fast'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 81920
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: cognitivecomputations
+  display_name: Cognitivecomputations
+  env_vars:
+  - COGNITIVECOMPUTATIONS_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: dolphin-mistral-24b-venice-edition
+    label: 'Venice: Uncensored'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: dolphin-mistral-24b-venice-edition:free
+    label: 'Venice: Uncensored (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 32768
+    recommended_for: general tasks
+    estimated_cost: low
+- name: bytedance
+  display_name: Bytedance
+  env_vars:
+  - BYTEDANCE_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: ui-tars-1.5-7b
+    label: 'ByteDance: UI-TARS 7B '
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+- name: ai21
+  display_name: Ai21
+  env_vars:
+  - AI21_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: jamba-large-1.7
+    label: 'AI21: Jamba Large 1.7'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: nousresearch
+  display_name: Nousresearch
+  env_vars:
+  - NOUSRESEARCH_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: hermes-4-70b
+    label: 'Nous: Hermes 4 70B'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: hermes-4-405b
+    label: 'Nous: Hermes 4 405B'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: hermes-3-llama-3.1-70b
+    label: 'Nous: Hermes 3 70B Instruct'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: hermes-3-llama-3.1-405b
+    label: 'Nous: Hermes 3 405B Instruct'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: hermes-3-llama-3.1-405b:free
+    label: 'Nous: Hermes 3 405B Instruct (free)'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+- name: thedrummer
+  display_name: Thedrummer
+  env_vars:
+  - THEDRUMMER_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: cydonia-24b-v4.1
+    label: 'TheDrummer: Cydonia 24B V4.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: skyfall-36b-v2
+    label: 'TheDrummer: Skyfall 36B V2'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 32768
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: unslopnemo-12b
+    label: 'TheDrummer: UnslopNemo 12B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 32768
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: rocinante-12b
+    label: 'TheDrummer: Rocinante 12B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 65536
+    recommended_for: general tasks
+    estimated_cost: low
+- name: perplexity
+  display_name: Perplexity
+  env_vars:
+  - PERPLEXITY_API_KEY
+  api_mode: chat_completions
+  base_url: https://api.perplexity.ai
+  fallback_models:
+  - id: sonar-pro-search
+    label: 'Perplexity: Sonar Pro Search'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: sonar-reasoning-pro
+    label: 'Perplexity: Sonar Reasoning Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: sonar-pro
+    label: 'Perplexity: Sonar Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: sonar-deep-research
+    label: 'Perplexity: Sonar Deep Research'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: sonar
+    label: 'Perplexity: Sonar'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 127072
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: deepcogito
+  display_name: Deepcogito
+  env_vars:
+  - DEEPCOGITO_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: cogito-v2.1-671b
+    label: 'Deep Cogito: Cogito v2.1 671B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: allenai
+  display_name: Allenai
+  env_vars:
+  - ALLENAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: olmo-3-32b-think
+    label: 'AllenAI: Olmo 3 32B Think'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 65536
+    recommended_for: general tasks
+    estimated_cost: low
+- name: amazon
+  display_name: Amazon
+  env_vars:
+  - AMAZON_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: nova-2-lite-v1
+    label: 'Amazon: Nova 2 Lite'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nova-premier-v1
+    label: 'Amazon: Nova Premier 1.0'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: nova-lite-v1
+    label: 'Amazon: Nova Lite 1.0'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 300000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nova-micro-v1
+    label: 'Amazon: Nova Micro 1.0'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nova-pro-v1
+    label: 'Amazon: Nova Pro 1.0'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 300000
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: relace
+  display_name: Relace
+  env_vars:
+  - RELACE_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: relace-search
+    label: 'Relace: Relace Search'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: relace-apply-3
+    label: 'Relace: Relace Apply 3'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: writer
+  display_name: Writer
+  env_vars:
+  - WRITER_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: palmyra-x5
+    label: 'Writer: Palmyra X5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1040000
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: upstage
+  display_name: Upstage
+  env_vars:
+  - UPSTAGE_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: solar-pro-3
+    label: 'Upstage: Solar Pro 3'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+- name: inception
+  display_name: Inception
+  env_vars:
+  - INCEPTION_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: mercury-2
+    label: 'Inception: Mercury 2'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+- name: bytedance-seed
+  display_name: Bytedance-seed
+  env_vars:
+  - BYTEDANCESEED_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: seed-2.0-lite
+    label: 'ByteDance Seed: Seed-2.0-Lite'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: seed-2.0-mini
+    label: 'ByteDance Seed: Seed-2.0-Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: seed-1.6-flash
+    label: 'ByteDance Seed: Seed 1.6 Flash'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: seed-1.6
+    label: 'ByteDance Seed: Seed 1.6'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+- name: rekaai
+  display_name: Rekaai
+  env_vars:
+  - REKAAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: reka-edge
+    label: Reka Edge
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 16384
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: reka-flash-3
+    label: Reka Flash 3
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 65536
+    recommended_for: general tasks
+    estimated_cost: low
+- name: arcee-ai
+  display_name: Arcee-ai
+  env_vars:
+  - ARCEEAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: trinity-large-thinking
+    label: 'Arcee AI: Trinity Large Thinking'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: virtuoso-large
+    label: 'Arcee AI: Virtuoso Large'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: xiaomi
+  display_name: Xiaomi
+  env_vars:
+  - XIAOMI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: mimo-v2.5-pro
+    label: 'Xiaomi: MiMo-V2.5-Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mimo-v2.5
+    label: 'Xiaomi: MiMo-V2.5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: low
+- name: deepseek
+  display_name: Deepseek
+  env_vars:
+  - DEEPSEEK_API_KEY
+  api_mode: chat_completions
+  base_url: https://api.deepseek.com/v1
+  fallback_models:
+  - id: deepseek-v4-pro
+    label: 'DeepSeek: DeepSeek V4 Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: deepseek-v4-flash
+    label: 'DeepSeek: DeepSeek V4 Flash'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: deepseek-v3.2
+    label: 'DeepSeek: DeepSeek V3.2'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 163840
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: deepseek-v3.2-exp
+    label: 'DeepSeek: DeepSeek V3.2 Exp'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 163840
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: deepseek-v3.1-terminus
+    label: 'DeepSeek: DeepSeek V3.1 Terminus'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: deepseek-chat-v3.1
+    label: 'DeepSeek: DeepSeek V3.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 163840
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: deepseek-r1-0528
+    label: 'DeepSeek: R1 0528'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 163840
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: deepseek-chat-v3-0324
+    label: 'DeepSeek: DeepSeek V3 0324'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 163840
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: deepseek-r1-distill-llama-70b
+    label: 'DeepSeek: R1 Distill Llama 70B'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: deepseek-r1
+    label: 'DeepSeek: R1'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 163840
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: deepseek-chat
+    label: 'DeepSeek: DeepSeek V3'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+- name: ~moonshotai
+  display_name: ~moonshotai
+  env_vars:
+  - ~MOONSHOTAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: kimi-latest
+    label: MoonshotAI Kimi Latest
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: ~google
+  display_name: ~google
+  env_vars:
+  - ~GOOGLE_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: gemini-pro-latest
+    label: Google Gemini Pro Latest
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gemini-flash-latest
+    label: Google Gemini Flash Latest
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: ~openai
+  display_name: ~openai
+  env_vars:
+  - ~OPENAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: gpt-mini-latest
+    label: OpenAI GPT Mini Latest
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-latest
+    label: OpenAI GPT Latest
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: high
+- name: mistralai
+  display_name: Mistralai
+  env_vars:
+  - MISTRALAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: mistral-medium-3-5
+    label: 'Mistral: Mistral Medium 3.5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: mistral-small-2603
+    label: 'Mistral: Mistral Small 4'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: devstral-2512
+    label: 'Mistral: Devstral 2 2512'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: ministral-14b-2512
+    label: 'Mistral: Ministral 3 14B 2512'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: ministral-8b-2512
+    label: 'Mistral: Ministral 3 8B 2512'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: ministral-3b-2512
+    label: 'Mistral: Ministral 3 3B 2512'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mistral-large-2512
+    label: 'Mistral: Mistral Large 3 2512'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: voxtral-small-24b-2507
+    label: 'Mistral: Voxtral Small 24B 2507'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 32000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mistral-medium-3.1
+    label: 'Mistral: Mistral Medium 3.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: codestral-2508
+    label: 'Mistral: Codestral 2508'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mistral-small-3.2-24b-instruct
+    label: 'Mistral: Mistral Small 3.2 24B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mistral-medium-3
+    label: 'Mistral: Mistral Medium 3'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mistral-small-3.1-24b-instruct
+    label: 'Mistral: Mistral Small 3.1 24B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mistral-saba
+    label: 'Mistral: Saba'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 32768
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mistral-small-24b-instruct-2501
+    label: 'Mistral: Mistral Small 3'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 32768
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mistral-large-2407
+    label: Mistral Large 2407
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: mistral-nemo
+    label: 'Mistral: Mistral Nemo'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: mixtral-8x22b-instruct
+    label: 'Mistral: Mixtral 8x22B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 65536
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: mistral-large
+    label: Mistral Large
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: ibm-granite
+  display_name: Ibm-granite
+  env_vars:
+  - IBMGRANITE_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: granite-4.1-8b
+    label: 'IBM: Granite 4.1 8B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: granite-4.0-h-micro
+    label: 'IBM: Granite 4.0 Micro'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131000
+    recommended_for: general tasks
+    estimated_cost: low
+- name: inclusionai
+  display_name: Inclusionai
+  env_vars:
+  - INCLUSIONAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: ring-2.6-1t
+    label: 'inclusionAI: Ring-2.6-1T'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: ling-2.6-1t
+    label: 'inclusionAI: Ling-2.6-1T'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: ling-2.6-flash
+    label: 'inclusionAI: Ling-2.6-flash'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+- name: perceptron
+  display_name: Perceptron
+  env_vars:
+  - PERCEPTRON_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: perceptron-mk1
+    label: 'Perceptron: Perceptron Mk1'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 32768
+    recommended_for: general tasks
+    estimated_cost: low
+- name: stepfun
+  display_name: Stepfun
+  env_vars:
+  - STEPFUN_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: step-3.7-flash
+    label: 'StepFun: Step 3.7 Flash'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: step-3.5-flash
+    label: 'StepFun: Step 3.5 Flash'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+- name: minimax
+  display_name: Minimax
+  env_vars:
+  - MINIMAX_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: minimax-m3
+    label: 'MiniMax: MiniMax M3'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: minimax-m2.7
+    label: 'MiniMax: MiniMax M2.7'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 204800
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: minimax-m2.5
+    label: 'MiniMax: MiniMax M2.5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 204800
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: minimax-m2-her
+    label: 'MiniMax: MiniMax M2-her'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 65536
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: minimax-m2.1
+    label: 'MiniMax: MiniMax M2.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 204800
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: minimax-m2
+    label: 'MiniMax: MiniMax M2'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 204800
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: minimax-m1
+    label: 'MiniMax: MiniMax M1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: minimax-01
+    label: 'MiniMax: MiniMax-01'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000192
+    recommended_for: general tasks
+    estimated_cost: low
+- name: qwen
+  display_name: Qwen
+  env_vars:
+  - QWEN_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: qwen3.7-plus
+    label: 'Qwen: Qwen3.7 Plus'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.7-max
+    label: 'Qwen: Qwen3.7 Max'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: qwen3.5-plus-20260420
+    label: 'Qwen: Qwen3.5 Plus 2026-04-20'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.6-flash
+    label: 'Qwen: Qwen3.6 Flash'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.6-35b-a3b
+    label: 'Qwen: Qwen3.6 35B A3B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.6-max-preview
+    label: 'Qwen: Qwen3.6 Max Preview'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: qwen3.6-27b
+    label: 'Qwen: Qwen3.6 27B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.6-plus
+    label: 'Qwen: Qwen3.6 Plus'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.5-9b
+    label: 'Qwen: Qwen3.5-9B'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.5-35b-a3b
+    label: 'Qwen: Qwen3.5-35B-A3B'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.5-27b
+    label: 'Qwen: Qwen3.5-27B'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.5-122b-a10b
+    label: 'Qwen: Qwen3.5-122B-A10B'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.5-flash-02-23
+    label: 'Qwen: Qwen3.5-Flash'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.5-plus-02-15
+    label: 'Qwen: Qwen3.5 Plus 2026-02-15'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3.5-397b-a17b
+    label: 'Qwen: Qwen3.5 397B A17B'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-max-thinking
+    label: 'Qwen: Qwen3 Max Thinking'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: qwen3-coder-next
+    label: 'Qwen: Qwen3 Coder Next'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-vl-32b-instruct
+    label: 'Qwen: Qwen3 VL 32B Instruct'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-vl-8b-thinking
+    label: 'Qwen: Qwen3 VL 8B Thinking'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-vl-8b-instruct
+    label: 'Qwen: Qwen3 VL 8B Instruct'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-vl-30b-a3b-thinking
+    label: 'Qwen: Qwen3 VL 30B A3B Thinking'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-vl-30b-a3b-instruct
+    label: 'Qwen: Qwen3 VL 30B A3B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-vl-235b-a22b-thinking
+    label: 'Qwen: Qwen3 VL 235B A22B Thinking'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-vl-235b-a22b-instruct
+    label: 'Qwen: Qwen3 VL 235B A22B Instruct'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-max
+    label: 'Qwen: Qwen3 Max'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: qwen3-coder-plus
+    label: 'Qwen: Qwen3 Coder Plus'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: qwen3-coder-flash
+    label: 'Qwen: Qwen3 Coder Flash'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-next-80b-a3b-thinking
+    label: 'Qwen: Qwen3 Next 80B A3B Thinking'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-next-80b-a3b-instruct
+    label: 'Qwen: Qwen3 Next 80B A3B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-next-80b-a3b-instruct:free
+    label: 'Qwen: Qwen3 Next 80B A3B Instruct (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen-plus-2025-07-28
+    label: 'Qwen: Qwen Plus 0728'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen-plus-2025-07-28:thinking
+    label: 'Qwen: Qwen Plus 0728 (thinking)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-30b-a3b-thinking-2507
+    label: 'Qwen: Qwen3 30B A3B Thinking 2507'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-coder-30b-a3b-instruct
+    label: 'Qwen: Qwen3 Coder 30B A3B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 160000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-30b-a3b-instruct-2507
+    label: 'Qwen: Qwen3 30B A3B Instruct 2507'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-235b-a22b-thinking-2507
+    label: 'Qwen: Qwen3 235B A22B Thinking 2507'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-coder
+    label: 'Qwen: Qwen3 Coder 480B A35B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-coder:free
+    label: 'Qwen: Qwen3 Coder 480B A35B (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-235b-a22b-2507
+    label: 'Qwen: Qwen3 235B A22B Instruct 2507'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-30b-a3b
+    label: 'Qwen: Qwen3 30B A3B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-8b
+    label: 'Qwen: Qwen3 8B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-14b
+    label: 'Qwen: Qwen3 14B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131702
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-32b
+    label: 'Qwen: Qwen3 32B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen3-235b-a22b
+    label: 'Qwen: Qwen3 235B A22B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen2.5-vl-72b-instruct
+    label: 'Qwen: Qwen2.5 VL 72B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: qwen-plus
+    label: 'Qwen: Qwen-Plus'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen-2.5-coder-32b-instruct
+    label: Qwen2.5 Coder 32B Instruct
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: qwen-2.5-7b-instruct
+    label: 'Qwen: Qwen2.5 7B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: qwen-2.5-72b-instruct
+    label: Qwen2.5 72B Instruct
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+- name: nvidia
+  display_name: Nvidia
+  env_vars:
+  - NVIDIA_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: nemotron-3.5-content-safety:free
+    label: 'NVIDIA: Nemotron 3.5 Content Safety (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nemotron-3-ultra-550b-a55b
+    label: 'NVIDIA: Nemotron 3 Ultra'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: nemotron-3-ultra-550b-a55b:free
+    label: 'NVIDIA: Nemotron 3 Ultra (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nemotron-3-nano-omni-30b-a3b-reasoning:free
+    label: 'NVIDIA: Nemotron 3 Nano Omni (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nemotron-3-super-120b-a12b
+    label: 'NVIDIA: Nemotron 3 Super'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nemotron-3-super-120b-a12b:free
+    label: 'NVIDIA: Nemotron 3 Super (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nemotron-3-nano-30b-a3b
+    label: 'NVIDIA: Nemotron 3 Nano 30B A3B'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nemotron-3-nano-30b-a3b:free
+    label: 'NVIDIA: Nemotron 3 Nano 30B A3B (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nemotron-nano-12b-v2-vl:free
+    label: 'NVIDIA: Nemotron Nano 12B 2 VL (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: llama-3.3-nemotron-super-49b-v1.5
+    label: 'NVIDIA: Llama 3.3 Nemotron Super 49B V1.5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nemotron-nano-9b-v2:free
+    label: 'NVIDIA: Nemotron Nano 9B V2 (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+- name: ~anthropic
+  display_name: ~anthropic
+  env_vars:
+  - ~ANTHROPIC_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: claude-fable-latest
+    label: 'Anthropic: Claude Fable Latest'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: claude-haiku-latest
+    label: Anthropic Claude Haiku Latest
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: claude-sonnet-latest
+    label: Anthropic Claude Sonnet Latest
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: claude-opus-latest
+    label: 'Anthropic: Claude Opus Latest'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: high
+- name: moonshotai
+  display_name: Moonshotai
+  env_vars:
+  - MOONSHOTAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: kimi-k2.7-code
+    label: 'MoonshotAI: Kimi K2.7 Code'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: kimi-k2.6
+    label: 'MoonshotAI: Kimi K2.6'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: kimi-k2.5
+    label: 'MoonshotAI: Kimi K2.5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: kimi-k2-thinking
+    label: 'MoonshotAI: Kimi K2 Thinking'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: kimi-k2-0905
+    label: 'MoonshotAI: Kimi K2 0905'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: kimi-k2
+    label: 'MoonshotAI: Kimi K2 0711'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: openrouter
+  display_name: Openrouter
+  env_vars:
+  - OPENROUTER_API_KEY
+  api_mode: chat_completions
+  base_url: https://openrouter.ai/api/v1
+  fallback_models:
+  - id: openrouter/fusion
+    label: 'OpenRouter: Fusion'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: openrouter/pareto-code
+    label: Pareto Code Router
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 2000000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: openrouter/free
+    label: Free Models Router
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: openrouter/bodybuilder
+    label: Body Builder (beta)
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: openrouter/auto
+    label: Auto Router
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 2000000
+    recommended_for: general tasks
+    estimated_cost: low
+- name: z-ai
+  display_name: Z-ai
+  env_vars:
+  - ZAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: glm-5.2
+    label: 'Z.ai: GLM 5.2'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1048576
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: glm-5.1
+    label: 'Z.ai: GLM 5.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 202752
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: glm-5v-turbo
+    label: 'Z.ai: GLM 5V Turbo'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 202752
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: glm-5-turbo
+    label: 'Z.ai: GLM 5 Turbo'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 202752
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: glm-5
+    label: 'Z.ai: GLM 5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 202752
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: glm-4.7-flash
+    label: 'Z.ai: GLM 4.7 Flash'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 202752
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: glm-4.7
+    label: 'Z.ai: GLM 4.7'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 202752
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: glm-4.6v
+    label: 'Z.ai: GLM 4.6V'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: glm-4.6
+    label: 'Z.ai: GLM 4.6'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 202752
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: glm-4.5v
+    label: 'Z.ai: GLM 4.5V'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 65536
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: glm-4.5
+    label: 'Z.ai: GLM 4.5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: glm-4.5-air
+    label: 'Z.ai: GLM 4.5 Air'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+- name: cohere
+  display_name: Cohere
+  env_vars:
+  - COHERE_API_KEY
+  api_mode: chat_completions
+  base_url: https://api.cohere.ai/compatibility/v1
+  fallback_models:
+  - id: north-mini-code:free
+    label: 'Cohere: North Mini Code (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: command-a
+    label: 'Cohere: Command A'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: command-r7b-12-2024
+    label: 'Cohere: Command R7B (12-2024)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: command-r-08-2024
+    label: 'Cohere: Command R (08-2024)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: command-r-plus-08-2024
+    label: 'Cohere: Command R+ (08-2024)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: high
+- name: sakana
+  display_name: Sakana
+  env_vars:
+  - SAKANA_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: fugu-ultra
+    label: 'Sakana: Fugu Ultra'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: high
+- name: nex-agi
+  display_name: Nex-agi
+  env_vars:
+  - NEXAGI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: nex-n2-mini
+    label: 'Nex AGI: Nex-N2-Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: nex-n2-pro
+    label: 'Nex AGI: Nex-N2-Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+- name: poolside
+  display_name: Poolside
+  env_vars:
+  - POOLSIDE_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: laguna-xs-2.1
+    label: 'Poolside: Laguna XS 2.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: laguna-xs-2.1:free
+    label: 'Poolside: Laguna XS 2.1 (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: laguna-m.1
+    label: 'Poolside: Laguna M.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: laguna-m.1:free
+    label: 'Poolside: Laguna M.1 (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+- name: tencent
+  display_name: Tencent
+  env_vars:
+  - TENCENT_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: hy3
+    label: 'Tencent: Hy3'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: hy3:free
+    label: 'Tencent: Hy3 (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: hy3-preview
+    label: 'Tencent: Hy3 preview'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 262144
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: hunyuan-a13b-instruct
+    label: 'Tencent: Hunyuan A13B Instruct'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+- name: aion-labs
+  display_name: Aion-labs
+  env_vars:
+  - AIONLABS_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: aion-3.0-mini
+    label: 'AionLabs: Aion-3.0-Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: aion-3.0
+    label: 'AionLabs: Aion-3.0'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: aion-2.0
+    label: 'AionLabs: Aion-2.0'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: aion-rp-llama-3.1-8b
+    label: 'AionLabs: Aion-RP 1.0 (8B)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 32768
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: ~x-ai
+  display_name: ~x-ai
+  env_vars:
+  - ~XAI_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: grok-latest
+    label: 'xAI: Grok Latest'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 500000
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: xai
+  display_name: Xai
+  env_vars:
+  - XAI_API_KEY
+  api_mode: chat_completions
+  base_url: https://api.x.ai/v1
+  fallback_models:
+  - id: grok-4.5
+    label: 'xAI: Grok 4.5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 500000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: grok-build-0.1
+    label: 'xAI: Grok Build 0.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: grok-4.3
+    label: 'xAI: Grok 4.3'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1000000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: grok-4.20-multi-agent
+    label: 'xAI: Grok 4.20 Multi-Agent'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 2000000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: grok-4.20
+    label: 'xAI: Grok 4.20'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 2000000
+    recommended_for: general tasks
+    estimated_cost: medium
+- name: openai
+  display_name: Openai
+  env_vars:
+  - OPENAI_API_KEY
+  api_mode: chat_completions
+  base_url: https://api.openai.com/v1
+  fallback_models:
+  - id: gpt-5.6-luna-pro
+    label: 'OpenAI: GPT-5.6 Luna Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.6-luna
+    label: 'OpenAI: GPT-5.6 Luna'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.6-terra-pro
+    label: 'OpenAI: GPT-5.6 Terra Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.6-terra
+    label: 'OpenAI: GPT-5.6 Terra'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.6-sol-pro
+    label: 'OpenAI: GPT-5.6 Sol Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.6-sol
+    label: 'OpenAI: GPT-5.6 Sol'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-chat-latest
+    label: 'OpenAI: GPT Chat Latest'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.5-pro
+    label: 'OpenAI: GPT-5.5 Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.5
+    label: 'OpenAI: GPT-5.5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.4-image-2
+    label: 'OpenAI: GPT-5.4 Image 2'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 272000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.4-nano
+    label: 'OpenAI: GPT-5.4 Nano'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: gpt-5.4-mini
+    label: 'OpenAI: GPT-5.4 Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.4-pro
+    label: 'OpenAI: GPT-5.4 Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.4
+    label: 'OpenAI: GPT-5.4'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1050000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.3-chat
+    label: 'OpenAI: GPT-5.3 Chat'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.3-codex
+    label: 'OpenAI: GPT-5.3-Codex'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-audio
+    label: 'OpenAI: GPT Audio'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-audio-mini
+    label: 'OpenAI: GPT Audio Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.2-codex
+    label: 'OpenAI: GPT-5.2-Codex'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.2-chat
+    label: 'OpenAI: GPT-5.2 Chat'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.2-pro
+    label: 'OpenAI: GPT-5.2 Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5.2
+    label: 'OpenAI: GPT-5.2'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.1-codex-max
+    label: 'OpenAI: GPT-5.1-Codex-Max'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.1
+    label: 'OpenAI: GPT-5.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.1-chat
+    label: 'OpenAI: GPT-5.1 Chat'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.1-codex
+    label: 'OpenAI: GPT-5.1-Codex'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5.1-codex-mini
+    label: 'OpenAI: GPT-5.1-Codex-Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: gpt-oss-safeguard-20b
+    label: 'OpenAI: gpt-oss-safeguard-20b'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: gpt-5-image-mini
+    label: 'OpenAI: GPT-5 Image Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5-image
+    label: 'OpenAI: GPT-5 Image'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: o3-deep-research
+    label: 'OpenAI: o3 Deep Research'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: o4-mini-deep-research
+    label: 'OpenAI: o4 Mini Deep Research'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5-pro
+    label: 'OpenAI: GPT-5 Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-5-codex
+    label: 'OpenAI: GPT-5 Codex'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5-chat
+    label: 'OpenAI: GPT-5 Chat'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5
+    label: 'OpenAI: GPT-5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-5-mini
+    label: 'OpenAI: GPT-5 Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: gpt-5-nano
+    label: 'OpenAI: GPT-5 Nano'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 400000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: gpt-oss-120b
+    label: 'OpenAI: gpt-oss-120b'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: gpt-oss-20b
+    label: 'OpenAI: gpt-oss-20b'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: gpt-oss-20b:free
+    label: 'OpenAI: gpt-oss-20b (free)'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 131072
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: o3-pro
+    label: 'OpenAI: o3 Pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: o4-mini-high
+    label: 'OpenAI: o4 Mini High'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: o3
+    label: 'OpenAI: o3'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: o4-mini
+    label: 'OpenAI: o4 Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-4.1
+    label: 'OpenAI: GPT-4.1'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1047576
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: gpt-4.1-mini
+    label: 'OpenAI: GPT-4.1 Mini'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1047576
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: gpt-4.1-nano
+    label: 'OpenAI: GPT-4.1 Nano'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 1047576
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: o1-pro
+    label: 'OpenAI: o1-pro'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 200000
+    recommended_for: general tasks
+    estimated_cost: high
+  - id: gpt-4o-mini-search-preview
+    label: 'OpenAI: GPT-4o-mini Search Preview'
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: general tasks
+    estimated_cost: low
+- name: kwaipilot
+  display_name: Kwaipilot
+  env_vars:
+  - KWAIPILOT_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: kat-coder-air-v2.5
+    label: 'Kwaipilot: KAT-Coder-Air V2.5'
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: low
+  - id: kat-coder-pro-v2.5
+    label: 'Kwaipilot: KAT-Coder-Pro V2.5'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: medium
+  - id: kat-coder-pro-v2
+    label: 'Kwaipilot: KAT-Coder-Pro V2'
+    tier: reasoning
+    supports_images: false
+    supports_structured_json: true
+    context_window: 256000
+    recommended_for: general tasks
+    estimated_cost: low
+- name: azure
+  display_name: Azure OpenAI
+  env_vars:
+  - AZURE_OPENAI_API_KEY
+  - AZURE_OPENAI_ENDPOINT
+  - AZURE_OPENAI_API_VERSION
+  - AZURE_OPENAI_MODEL
+  api_mode: chat_completions
+  base_url: ''
+  description: Microsoft Azure OpenAI Service
+  fallback_models:
+  - id: gpt-4o
+    label: GPT-4o (Azure)
+    tier: reasoning
+    supports_images: true
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: Azure complex reasoning
+    estimated_cost: variable
+  - id: gpt-4o-mini
+    label: GPT-4o Mini (Azure)
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: Azure high-performance chat
+    estimated_cost: variable
+  - id: o1
+    label: o1 (Azure)
+    tier: reasoning
+    supports_images: true
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: Azure logic and coding
+    estimated_cost: variable
+- name: ollama
+  display_name: Ollama
+  env_vars: []
+  api_mode: chat_completions
+  base_url: http://127.0.0.1:11434/v1
+  fallback_models:
+  - id: llama4
+    label: Llama 4
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 32000
+    recommended_for: local-first fallback
+    estimated_cost: local
+- name: lm_studio
+  display_name: LM Studio
+  env_vars: []
+  api_mode: chat_completions
+  base_url: http://127.0.0.1:1234/v1
+  fallback_models:
+  - id: meta-llama-3-8b-instruct
+    label: Llama 3 8B
+    tier: fast
+    supports_images: false
+    supports_structured_json: true
+    context_window: 8000
+    recommended_for: local-first development
+    estimated_cost: local
+- name: custom
+  display_name: Custom Provider
+  env_vars:
+  - CUSTOM_API_KEY
+  api_mode: chat_completions
+  base_url: ''
+  fallback_models:
+  - id: custom-model
+    label: Custom Model
+    tier: fast
+    supports_images: true
+    supports_structured_json: true
+    context_window: 128000
+    recommended_for: custom OpenAI-compatible endpoint
+    estimated_cost: variable

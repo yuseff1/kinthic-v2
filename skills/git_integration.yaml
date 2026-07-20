@@ -1,0 +1,7 @@
+name: git_integration
+description: Safe and structured Git & GitHub branch management, committing, and pull requests
+version: "1.0.0"
+author: OpenYF
+tags: [git, github, code, workflow]
+trust_level: core
+trigger: git branch commit push pr github pull request repository diff status
