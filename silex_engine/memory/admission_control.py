@@ -85,13 +85,18 @@ class AdmissionController:
             w_t = self.weights.get("type_prior", 0.1)
         else:
             w_u, w_c, w_n, w_r, w_t = self.weights
-        composite_score = (
+        import math
+        raw_composite = (
             (w_u * utility)
             + (w_c * confidence)
             + (w_n * novelty)
             + (w_r * recency)
             + (w_t * type_prior)
         )
+        if math.isnan(raw_composite):
+            composite_score = 0.0
+        else:
+            composite_score = float(max(0.0, min(1.0, raw_composite)))
 
         # Payload Gating (Context Isolation)
         # If the content exceeds 800 chars, it's likely a bloated payload (e.g., raw tool output).

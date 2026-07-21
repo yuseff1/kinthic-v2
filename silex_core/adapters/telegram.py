@@ -85,6 +85,7 @@ class TelegramAdapter(MessageAdapter):
         app.add_handler(CommandHandler("skills", _skills_command))
         app.add_handler(CommandHandler("logout", _logout_command))
         app.add_handler(CommandHandler("remember", _remember_command))
+        app.add_handler(CommandHandler("briefing", _briefing_command))
         app.add_handler(CommandHandler("pair", _pair_command))
         app.add_handler(
             MessageHandler(
@@ -99,6 +100,7 @@ class TelegramAdapter(MessageAdapter):
 
         await app.initialize()
         app.job_queue.run_repeating(_poll_notifications, interval=5, first=2)
+        app.job_queue.run_repeating(_daily_briefing_job, interval=86400, first=60)
         await app.start()
         await app.updater.start_polling()
 
@@ -270,11 +272,32 @@ async def _remember_command(
         await update.message.reply_text("No memories found matching that query.")
         return
 
-    lines = [f"**Memories matching '{query}':**\n"]
-    for i, r in enumerate(results, 1):
-        lines.append(f"{i}. {r['content']} (imp: {r['importance']}/5)")
-
     await update.message.reply_text("\n".join(lines), parse_mode="Markdown")
+
+
+async def _briefing_command(
+    update: "Update", context: "ContextTypes.DEFAULT_TYPE"
+) -> None:
+    if not telegram_user_allowed(update.effective_user.id):
+        await update.message.reply_text("Access denied.")
+        return
+    from silex_core.services.briefing import BriefingService
+    loop = get_active_loop()
+    db = loop.db if loop else None
+    service = BriefingService(db=db)
+    report = await service.generate_briefing()
+    await update.message.reply_text(report, parse_mode="Markdown")
+
+
+async def _daily_briefing_job(context: "ContextTypes.DEFAULT_TYPE") -> None:
+    try:
+        from silex_core.services.briefing import BriefingService
+        loop = get_active_loop()
+        db = loop.db if loop else None
+        service = BriefingService(db=db)
+        await service.queue_briefing_notification()
+    except Exception as exc:
+        log.error("Failed to queue daily briefing job: %s", exc)
 
 
 async def _approval_decision_command(

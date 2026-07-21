@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  kinthic:
+    build: .
+    container_name: kinthic-agent
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - KINTHIC_ENV=production
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - ALLOWED_TELEGRAM_USERS=${ALLOWED_TELEGRAM_USERS}
+      - X_API_KEY=${X_API_KEY}
+      - X_API_SECRET=${X_API_SECRET}
+      - X_ACCESS_TOKEN=${X_ACCESS_TOKEN}
+      - X_ACCESS_TOKEN_SECRET=${X_ACCESS_TOKEN_SECRET}
+    volumes:
+      - kinthic_data:/root/.kinthic
+      - kinthic_silex:/root/.silex
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  kinthic_data:
+  kinthic_silex:

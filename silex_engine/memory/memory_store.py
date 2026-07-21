@@ -186,26 +186,33 @@ class MemoryStore:
             novelty_checker,
         )
 
+        import math
         if not amac_result["admitted"]:
             score = amac_result.get("composite_score")
+            score_val = None
+            if score is not None and not math.isnan(score):
+                score_val = float(max(0.0, min(1.0, score)))
             log.info(
-                f"Memory rejected by A-MAC (Score: {score:.2f}): {memory.content[:40]}..."
+                f"Memory rejected by A-MAC (Score: {score_val if score_val is not None else 0.0:.2f}): {memory.content[:40]}..."
             )
             return {
                 "accepted": False,
                 "memory": None,
                 "reason": "amac_rejected",
-                "amac_score": float(score) if score is not None else None,
+                "amac_score": score_val,
             }
 
         stored = await self._commit_admitted_memory(
             memory, amac_result, content_type, user_id, session_id
         )
+        comp_score = amac_result.get("composite_score", 0.0)
+        if math.isnan(comp_score):
+            comp_score = 0.0
         return {
             "accepted": True,
             "memory": stored,
             "reason": "accepted",
-            "amac_score": float(amac_result.get("composite_score", 0.0)),
+            "amac_score": float(max(0.0, min(1.0, comp_score))),
         }
 
     async def add(self, memory: Memory) -> Memory | None:
@@ -339,18 +346,25 @@ class MemoryStore:
         )
         if row is None:
             return False
+
+        fts5_ok = False
+        try:
+            fts5_ok = await self._check_fts5()
+        except Exception:
+            fts5_ok = False
+
         async with self.db.transaction():
             await self.db.execute("DELETE FROM memories WHERE id = ?", (memory_id,))
             await self.db.execute(
                 "DELETE FROM admitted_memories WHERE memory_id = ?", (memory_id,)
             )
-            try:
-                if await self._check_fts5():
+            if fts5_ok:
+                try:
                     await self.db.execute(
                         "DELETE FROM memories_fts WHERE id = ?", (memory_id,)
                     )
-            except Exception:
-                pass
+                except Exception:
+                    pass
 
         if self.vs.is_active:
             try:

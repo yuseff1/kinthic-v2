@@ -1,4 +1,4 @@
-﻿"""
+"""
 Knowledge Graph Engine â€” KINTHIC's causal world model.
 
 Uses NetworkX as an in-memory directed graph with SQLite persistence.
@@ -860,4 +860,85 @@ class KnowledgeGraph:
             "isolated_nodes": isolated,
             "connected_components": isolated,
         }
+
+    # ------------------------------------------------------------------
+    # Phase 1 — Code Property Graph (CPG) Operations
+    # ------------------------------------------------------------------
+
+    async def add_cpg_node(
+        self,
+        label: str,
+        code: str | None = None,
+        line_number: int | None = None,
+        column_number: int | None = None,
+        file_id: int | None = None,
+        properties: dict | None = None,
+    ) -> int:
+        """Insert a CPG node into SQLite and return its integer ID."""
+        props_str = json.dumps(properties or {})
+        cursor = await self.db.execute(
+            """
+            INSERT INTO cpg_nodes (label, code, line_number, column_number, file_id, properties)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (label, code, line_number, column_number, file_id, props_str),
+        )
+        return cursor.lastrowid
+
+    async def add_cpg_edge(
+        self,
+        source_id: int,
+        target_id: int,
+        edge_type: str,
+        property_val: str | None = None,
+    ) -> None:
+        """Insert a CPG edge with bi-temporal fields set to current time."""
+        now = datetime.now(timezone.utc).isoformat()
+        await self.db.execute(
+            """
+            INSERT OR REPLACE INTO cpg_edges (source_id, target_id, type, property, valid_from, valid_until, recorded_at)
+            VALUES (?, ?, ?, ?, ?, NULL, ?)
+            """,
+            (source_id, target_id, edge_type, property_val, now, now),
+        )
+
+    async def find_cpg_flow_paths(self, start_node_id: int, max_depth: int = 10) -> list[dict]:
+        """Perform a recursive CTE search to find reachable nodes via CFG and REACHING_DEF edges."""
+        query = """
+        WITH RECURSIVE graph_walk(node_id, depth, path) AS (
+            SELECT 
+                ? AS node_id, 
+                0 AS depth,
+                '/' || ? || '/' AS path
+            UNION ALL
+            SELECT 
+                CASE WHEN e.source_id = gw.node_id THEN e.target_id ELSE e.source_id END,
+                gw.depth + 1,
+                gw.path || CASE WHEN e.source_id = gw.node_id THEN e.target_id ELSE e.source_id END || '/'
+            FROM graph_walk gw
+            INNER JOIN cpg_edges e ON (e.source_id = gw.node_id OR e.target_id = gw.node_id)
+            WHERE gw.depth < ?
+              AND e.type IN ('CFG', 'REACHING_DEF')
+              AND e.valid_until IS NULL
+              AND gw.path NOT LIKE '%/' || CASE WHEN e.source_id = gw.node_id THEN e.target_id ELSE e.source_id END || '/%'
+        )
+        SELECT DISTINCT n.id, n.label, n.code, n.line_number, gw.depth
+        FROM graph_walk gw
+        INNER JOIN cpg_nodes n ON n.id = gw.node_id
+        ORDER BY gw.depth ASC
+        """
+        return await self.db.fetch_all(query, (start_node_id, start_node_id, max_depth))
+
+    async def clear_cpg_file(self, file_path: str) -> None:
+        """Delete all CPG nodes associated with the file path (cascades to edges)."""
+        # First retrieve the file node ID
+        file_row = await self.db.fetch_one(
+            "SELECT id FROM cpg_nodes WHERE label = 'FILE' AND code = ?",
+            (file_path,),
+        )
+        if file_row:
+            file_id = file_row["id"]
+            # Deleting the file node cascades to delete all child nodes referencing it,
+            # and cpg_edges cascading deletes ensures edges referencing those nodes are cleaned.
+            await self.db.execute("DELETE FROM cpg_nodes WHERE id = ?", (file_id,))
 

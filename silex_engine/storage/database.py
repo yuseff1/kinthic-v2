@@ -528,6 +528,49 @@ CREATE TABLE IF NOT EXISTS trajectory_steps (
 );
 
 CREATE INDEX IF NOT EXISTS idx_trajectory_steps_order ON trajectory_steps(trajectory_id, step_order);
+
+-- =====================================================================
+-- Phase 1 — Code Property Graph (CPG) Tables
+-- =====================================================================
+CREATE TABLE IF NOT EXISTS cpg_nodes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    label TEXT NOT NULL,
+    code TEXT,
+    line_number INTEGER,
+    column_number INTEGER,
+    file_id INTEGER,
+    properties TEXT NOT NULL DEFAULT '{}',
+    FOREIGN KEY (file_id) REFERENCES cpg_nodes(id) ON DELETE CASCADE
+) STRICT;
+
+CREATE TABLE IF NOT EXISTS cpg_edges (
+    source_id INTEGER NOT NULL,
+    target_id INTEGER NOT NULL,
+    type TEXT NOT NULL,
+    property TEXT,
+    valid_from TEXT,
+    valid_until TEXT,
+    recorded_at TEXT,
+    PRIMARY KEY (source_id, target_id, type),
+    FOREIGN KEY (source_id) REFERENCES cpg_nodes(id) ON DELETE CASCADE,
+    FOREIGN KEY (target_id) REFERENCES cpg_nodes(id) ON DELETE CASCADE
+) STRICT;
+
+CREATE INDEX IF NOT EXISTS idx_cpg_edges_outgoing ON cpg_edges (source_id, type, target_id) WHERE valid_until IS NULL;
+CREATE INDEX IF NOT EXISTS idx_cpg_edges_incoming ON cpg_edges (target_id, type, source_id) WHERE valid_until IS NULL;
+CREATE INDEX IF NOT EXISTS idx_cpg_nodes_lookup ON cpg_nodes (label, id);
+CREATE INDEX IF NOT EXISTS idx_cpg_nodes_file ON cpg_nodes (file_id) WHERE file_id IS NOT NULL;
+
+-- =====================================================================
+-- Phase 3 — Hierarchical Summary Tree (RAPTOR) Table
+-- =====================================================================
+CREATE TABLE IF NOT EXISTS raptor_nodes (
+    node_id TEXT PRIMARY KEY,
+    text TEXT NOT NULL,
+    level INTEGER NOT NULL,
+    children_ids TEXT NOT NULL DEFAULT '[]',
+    embedding_json TEXT NOT NULL DEFAULT '[]'
+);
 """
 
 MIGRATIONS_SQL = [
@@ -690,6 +733,45 @@ MIGRATIONS_SQL = [
         memory_id TEXT PRIMARY KEY,
         queued_at REAL NOT NULL,
         attempts INTEGER NOT NULL DEFAULT 0
+    )""",
+    # ----------------------------------------------------------------
+    # Phase 1 — Code Property Graph (CPG) migrations
+    # ----------------------------------------------------------------
+    """CREATE TABLE IF NOT EXISTS cpg_nodes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        label TEXT NOT NULL,
+        code TEXT,
+        line_number INTEGER,
+        column_number INTEGER,
+        file_id INTEGER,
+        properties TEXT NOT NULL DEFAULT '{}',
+        FOREIGN KEY (file_id) REFERENCES cpg_nodes(id) ON DELETE CASCADE
+    ) STRICT""",
+    """CREATE TABLE IF NOT EXISTS cpg_edges (
+        source_id INTEGER NOT NULL,
+        target_id INTEGER NOT NULL,
+        type TEXT NOT NULL,
+        property TEXT,
+        valid_from TEXT,
+        valid_until TEXT,
+        recorded_at TEXT,
+        PRIMARY KEY (source_id, target_id, type),
+        FOREIGN KEY (source_id) REFERENCES cpg_nodes(id) ON DELETE CASCADE,
+        FOREIGN KEY (target_id) REFERENCES cpg_nodes(id) ON DELETE CASCADE
+    ) STRICT""",
+    "CREATE INDEX IF NOT EXISTS idx_cpg_edges_outgoing ON cpg_edges (source_id, type, target_id) WHERE valid_until IS NULL",
+    "CREATE INDEX IF NOT EXISTS idx_cpg_edges_incoming ON cpg_edges (target_id, type, source_id) WHERE valid_until IS NULL",
+    "CREATE INDEX IF NOT EXISTS idx_cpg_nodes_lookup ON cpg_nodes (label, id)",
+    "CREATE INDEX IF NOT EXISTS idx_cpg_nodes_file ON cpg_nodes (file_id) WHERE file_id IS NOT NULL",
+    # ----------------------------------------------------------------
+    # Phase 3 — Hierarchical Summary Tree (RAPTOR) migrations
+    # ----------------------------------------------------------------
+    """CREATE TABLE IF NOT EXISTS raptor_nodes (
+        node_id TEXT PRIMARY KEY,
+        text TEXT NOT NULL,
+        level INTEGER NOT NULL,
+        children_ids TEXT NOT NULL DEFAULT '[]',
+        embedding_json TEXT NOT NULL DEFAULT '[]'
     )""",
 ]
 

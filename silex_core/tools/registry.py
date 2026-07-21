@@ -86,13 +86,20 @@ class ToolRegistry:
             self.register(RAGQueryTool(self.file_indexer))
             self.register(RAGIndexTool(self.file_indexer))
 
-        # Phase D — Load user tool plugins from ~/.kinthic/plugins/tools/
+        # Phase D — Load user tool plugins from ~/.kinthic/plugins/tools/ and workspace plugins/tools/
         try:
-            from silex_core.utils.config import KINTHIC_PLUGINS_TOOLS
+            from silex_core.utils.config import KINTHIC_PLUGINS_TOOLS, WORKSPACE_DIR
             from silex_core.plugins.loader import load_tool_plugins
 
+            # 1. Global home plugins
             user_tools = load_tool_plugins(KINTHIC_PLUGINS_TOOLS)
             for tool in user_tools:
+                self.register(tool)
+
+            # 2. Local workspace plugins
+            workspace_plugins_dir = WORKSPACE_DIR / "plugins" / "tools"
+            workspace_tools = load_tool_plugins(workspace_plugins_dir)
+            for tool in workspace_tools:
                 self.register(tool)
         except Exception as exc:
             log.warning("Plugin loader error: %s", exc)

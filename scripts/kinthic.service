@@ -1,0 +1,17 @@
+[Unit]
+Description=Kinthic v2 Telegram Channel Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/kinthic
+ExecStart=/home/ubuntu/kinthic/scripts/start_kinthic.sh
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=kinthic
+
+[Install]
+WantedBy=multi-user.target

@@ -1,69 +1,62 @@
+# Kinthic Quickstart Guide
+
+Get up and running with **Kinthic v2** in under 5 minutes.
+
 ---
-title: "Quickstart"
-description: "Get started with Kinthic in under 60 seconds."
----
 
-Kinthic is a local-first AI agent built on the **Silex memory engine**. It persists facts in a local database and builds an epistemic graph so it remembers *what* it learned and *how* things connect across sessions.
+## 1. Installation
 
-## Prerequisites
-
-- macOS, Linux, or WSL2 on Windows
-- Python 3.10+
-- (Optional) Docker (for execution sandboxing)
-
-## Installation
-
-The easiest way to install Kinthic is via the one-line installer:
-
-```bash
-curl -fsSL https://kinthic.openyf.dev/install.sh | bash
-```
-
-Alternatively, you can install from source:
+Clone Kinthic repository:
 
 ```bash
 git clone https://github.com/openyfai/kinthic.git
 cd kinthic
+```
+
+Install Python dependencies:
+
+```bash
 pip install -e .
 ```
 
-## Setup Wizard
+---
 
-After installation, run the initial interactive wizard to connect your LLM providers:
+## 2. One-Command VM Setup
 
-```bash
-kinthic init
-```
-
-The wizard will guide you through:
-1. Selecting your primary LLM provider (OpenAI, Anthropic, Gemini, OpenRouter, or local models via Ollama/LM Studio).
-2. Authenticating your API key.
-3. Enabling workflows and skills.
-4. Setting up optional MCP connections and Telegram/Discord channels.
-
-> **Note on Local Models:** If you select Ollama or LM Studio, Kinthic will automatically detect your installed models.
-
-## Your First Session
-
-Start an interactive chat session:
+For VM / VPS deployments, run the interactive setup wizard:
 
 ```bash
-kinthic
+bash scripts/setup_vps.sh
 ```
 
-Try asking it to remember something across sessions:
-1. **You:** "My favorite framework is Next.js."
-2. *Close the session (Ctrl+C).*
-3. *Start a new session:* `kinthic`
-4. **You:** "What's my favorite framework?"
-5. **Kinthic:** "Your favorite framework is Next.js."
+Follow the prompts to enter your **Telegram Bot Token**, **LLM API Keys** (OpenAI, Anthropic, Gemini, OpenRouter), and preferred model defaults.
 
-## Exploring Memory
+---
 
-You can visualize Kinthic's memory graph by running the dashboard:
+## 3. Registered Tool Plugins
 
+Kinthic comes equipped with core tool plugins out-of-the-box:
+
+* **X Social Suite (`x_social`)**: `post_x_status`, `x_interactive_login`, `x_auto_engage` (topic search, reply generator, growth stats).
+* **Stealth Multi-Platform Session Manager (`browser_session_manager`)**: `list_sessions`, `interactive_login`, `check_session`, `fetch_page` (LinkedIn, Reddit, GitHub, X).
+* **Proactive Daily Briefings**: `/briefing` command & 24h cron push notifications.
+* **VM Watchdog & Auto-Healing**: Background supervisor monitoring API gateway & SQLite health.
+
+---
+
+## 4. Basic CLI Usage
+
+Start Kinthic interactively:
 ```bash
-kinthic web
+kinthic start
 ```
 
-This opens a local backend and a beautiful 2D Force Graph on your browser where you can see all your agent's epistemic nodes and reasoning links!
+Query memory:
+```bash
+kinthic memory search "project goals"
+```
+
+Check health & loaded skills:
+```bash
+kinthic status
+```

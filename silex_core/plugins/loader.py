@@ -83,33 +83,34 @@ def load_tool_plugins(plugins_dir: Path) -> list["BaseTool"]:
             sys.modules[module_name] = module
             spec.loader.exec_module(module)  # type: ignore[union-attr]
 
-            # Find the first BaseTool subclass (skip the base itself)
-            tool_class = None
+            # Find all BaseTool subclasses in module (skip BaseTool itself)
+            found_classes = []
             for obj in module.__dict__.values():
                 if (
                     isinstance(obj, type)
                     and issubclass(obj, BaseTool)
                     and obj is not BaseTool
+                    and obj not in found_classes
                 ):
-                    tool_class = obj
-                    break
+                    found_classes.append(obj)
 
-            if tool_class is None:
+            if not found_classes:
                 log.warning(
                     "Plugin %s: no BaseTool subclass found in tool.py", plugin_dir.name
                 )
                 continue
 
-            tool_instance = tool_class()
-            tools.append(tool_instance)
-            _loaded_plugins[plugin_dir.name] = tool_instance
+            for tool_class in found_classes:
+                tool_instance = tool_class()
+                tools.append(tool_instance)
+                _loaded_plugins[f"{plugin_dir.name}:{tool_instance.name}"] = tool_instance
 
-            log.info(
-                "Loaded plugin tool: %s v%s → tool '%s'",
-                plugin_label,
-                plugin_version,
-                tool_instance.name,
-            )
+                log.info(
+                    "Loaded plugin tool: %s v%s → tool '%s'",
+                    plugin_label,
+                    plugin_version,
+                    tool_instance.name,
+                )
 
         except Exception as exc:
             log.warning("Failed to load plugin '%s': %s", plugin_dir.name, exc)

@@ -1,0 +1,21 @@
+[Unit]
+Description=Kinthic v2 Cognitive Agent & Watchdog Supervisor
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/kinthic
+ExecStart=/home/ubuntu/kinthic/scripts/start_kinthic.sh
+Restart=always
+RestartSec=5s
+MemoryMax=4G
+EnvironmentFile=-/etc/kinthic/kinthic.env
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=kinthic-supervisor
+
+[Install]
+WantedBy=multi-user.target

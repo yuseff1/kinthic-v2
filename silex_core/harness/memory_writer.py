@@ -45,6 +45,15 @@ class MemoryWriter:
                 )
                 await self.memory_store.add(memory_obj)
 
+                # Revise propositions under the AGM belief framework
+                try:
+                    from silex_engine.world.belief_revision import BeliefRevisionEngine
+                    engine = BeliefRevisionEngine(self.graph.db)
+                    await engine.revise_belief(content, "true", 0.7)
+                except Exception as e:
+                    from silex_core.utils.logger import setup_logger
+                    setup_logger("silex.harness.memory_writer").warning(f"AGM belief revision skip: {e}")
+
         # Process Causal Graph Updates
         if causal_obs:
             from silex_engine.models.schemas import KnowledgeNode, CausalEdge, NodeType

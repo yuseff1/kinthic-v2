@@ -352,11 +352,29 @@ class BrowserTool(BaseTool):
         log.info("Starting headless Chromium instance...")
         self.playwright = await async_playwright().start()
 
+        # Load X (Twitter) session state if present to keep the browser logged in
+        cookies_path = Path.home() / ".kinthic" / "x_cookies.json"
         self.browser = await self.playwright.chromium.launch(headless=True)
-        self.context = await self.browser.new_context(
-            viewport={"width": 1920, "height": 1080},
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-        )
+        
+        if cookies_path.exists():
+            try:
+                log.info("Loading saved X.com storage state into browser context.")
+                self.context = await self.browser.new_context(
+                    viewport={"width": 1920, "height": 1080},
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                    storage_state=str(cookies_path)
+                )
+            except Exception as e:
+                log.warning(f"Failed to load storage state: {e}. Falling back to clean context.")
+                self.context = await self.browser.new_context(
+                    viewport={"width": 1920, "height": 1080},
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                )
+        else:
+            self.context = await self.browser.new_context(
+                viewport={"width": 1920, "height": 1080},
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+            )
         
         # Register Playwright Request Firewall on context
         await self.context.route("**/*", self._route_handler)

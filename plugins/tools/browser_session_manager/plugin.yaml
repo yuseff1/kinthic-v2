@@ -1,0 +1,5 @@
+name: "browser_session_manager"
+version: "1.0.0"
+description: "Stealth multi-platform browser session manager (LinkedIn, Reddit, GitHub, X, custom). Supports interactive login, session verification, and authenticated page fetching."
+author: "Kinthic"
+tags: ["browser", "session", "stealth", "playwright", "authentication"]

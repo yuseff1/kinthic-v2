@@ -31,9 +31,17 @@ class ContextBuilder:
             history_lines.append(f"KINTHIC: {t.response}")
         history = "\n".join(history_lines)
         
-        # Pull top-k semantic memories based on user input
-        memories = await self.memory_store.retrieve_context(turn_context.user_input)
-        memory_str = "\n".join([m.content for m in memories[:5]]) if memories else "None."
+        # Pull top-k semantic memories using HybridRetriever (fusing sparse, dense, and graph paths)
+        try:
+            from silex_core.tools.hybrid_retriever import HybridRetriever
+            retriever = HybridRetriever(self.graph.db, vector_store=self.memory_store.vs)
+            hybrid_mems = await retriever.retrieve_hybrid(turn_context.user_input, top_n=5)
+            memory_str = "\n".join([m["content"] for m in hybrid_mems]) if hybrid_mems else "None."
+        except Exception as e:
+            from silex_core.utils.logger import setup_logger
+            setup_logger("silex.harness.context_builder").warning(f"Hybrid retrieval failed, falling back: {e}")
+            memories = await self.memory_store.retrieve_context(turn_context.user_input)
+            memory_str = "\n".join([m.content for m in memories[:5]]) if memories else "None."
         
         # Pull relevant knowledge graph subgraph context
         try:

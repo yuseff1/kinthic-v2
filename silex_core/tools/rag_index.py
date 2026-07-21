@@ -12,9 +12,14 @@ from silex_core.utils.config import WORKSPACE_DIR
 
 def _is_path_allowed(path: Path) -> bool:
     import sys, re
-    # Resolve and translate Windows path format on WSL/Linux
     path_str = str(path)
-    if sys.platform != "win32":
+    if sys.platform == "win32":
+        match = re.match(r"^[/\\]mnt[/\\]([a-zA-Z])[/\\](.*)", path_str)
+        if match:
+            drive = match.group(1).upper()
+            rest = match.group(2).replace("/", "\\")
+            path_str = f"{drive}:\\{rest}"
+    elif sys.platform != "win32":
         match = re.match(r"^([a-zA-Z]):[/\\](.*)", path_str)
         if match:
             drive = match.group(1).lower()
