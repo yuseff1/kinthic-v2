@@ -121,10 +121,10 @@ def default_settings() -> dict[str, Any]:
     return {
         "version": 1,
         "setup_completed": False,
-        "provider": "gemini",
-        "model": "gemini-2.5-flash",
-        "fast_model": "gemini-2.5-flash",
-        "reasoning_model": "gemini-2.5-pro",
+        "provider": "",
+        "model": "",
+        "fast_model": "",
+        "reasoning_model": "",
         "providers": {},
         "security": {
             "require_tool_approvals": True,

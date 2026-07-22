@@ -893,8 +893,10 @@ def run_doctor(*, ping: bool = False) -> None:
         print("Next step: run `kinthic init` to configure your provider and skills.\n")
     else:
         print(f"Setup complete: {status['setup_completed']}")
-    print(f"Provider: {provider_label}")
-    print(f"Model: {status['model']}")
+    p_val = provider_label if provider_label else "None (Not Configured)"
+    m_val = status['model'] if status['model'] else "None (Not Configured)"
+    print(f"Provider: {p_val}")
+    print(f"Model: {m_val}")
     print(f"Provider key configured: {status['provider_configured']}")
     print(f"Web API key configured: {status['web_api_key_configured']}")
 
@@ -949,25 +951,6 @@ def run_doctor(*, ping: bool = False) -> None:
             print(line)
     except Exception as exc:
         print(f"MCP status unavailable: {exc}")
-
-    try:
-        from silex_core.mcp.server.app import get_mcp_context
-        from silex_core.mcp.server.audit import get_audit_log
-        from silex_core.utils.config import gateway_host, gateway_port
-
-        ctx = get_mcp_context()
-        print(
-            f"Silex MCP server endpoint: http://{gateway_host()}:{gateway_port()}/mcp"
-        )
-        print(
-            f"Silex MCP active in-process: {'yes' if ctx else 'no (start daemon/gateway)'}"
-        )
-        audit = get_audit_log()
-        print(f"MCP audit log: {audit.path}")
-        if audit.last_error:
-            print(f"MCP audit last error: {audit.last_error}")
-    except Exception as exc:
-        print(f"Silex MCP server status unavailable: {exc}")
 
     from silex_core.utils.config import KINTHIC_BACKUPS, KINTHIC_HOME
 
