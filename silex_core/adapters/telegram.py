@@ -42,9 +42,11 @@ def _env_allowlist() -> list[int]:
 def telegram_user_allowed(user_id: int) -> bool:
     if telegram_public_mode_enabled():
         return True
-    if settings_store.is_telegram_user_allowed(user_id):
-        return True
     return user_id in _env_allowlist()
+
+
+async def _telegram_error_handler(update: object, context: Any) -> None:
+    log.error("Telegram adapter error: %s", getattr(context, "error", None), exc_info=getattr(context, "error", None))
 
 
 class TelegramAdapter(MessageAdapter):
@@ -95,6 +97,8 @@ class TelegramAdapter(MessageAdapter):
             )
         )
 
+        app.add_error_handler(_telegram_error_handler)
+
         print("\n🚀 Starting Kinthic Telegram adapter...")
         _print_security_status()
 
@@ -102,7 +106,7 @@ class TelegramAdapter(MessageAdapter):
         app.job_queue.run_repeating(_poll_notifications, interval=5, first=2)
         app.job_queue.run_repeating(_daily_briefing_job, interval=86400, first=60)
         await app.start()
-        await app.updater.start_polling()
+        await app.updater.start_polling(drop_pending_updates=True)
 
         # Keep app reference to avoid GC
         self._app = app
