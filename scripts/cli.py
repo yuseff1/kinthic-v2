@@ -817,12 +817,15 @@ async def run_interactive_setup(*, onboard: bool = False) -> None:
         ui.render_step(
             "Semantic memory", "Prefetching embedding model (one-time download)..."
         )
-        from silex_core.ops.prefetch import prefetch_embedding_model
+        try:
+            from silex_core.ops.prefetch import prefetch_embedding_model
 
-        prefetch_msg = prefetch_embedding_model()
-        if prefetch_msg:
-            ui.render_step("Semantic memory", prefetch_msg)
-            await asyncio.sleep(0.5)
+            prefetch_msg = prefetch_embedding_model()
+            if prefetch_msg:
+                ui.render_step("Semantic memory", prefetch_msg)
+                await asyncio.sleep(0.5)
+        except Exception:
+            pass
 
     if onboard:
         ui.render_step(
