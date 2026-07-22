@@ -458,7 +458,9 @@ async def _handle_message(
 
         # Message Splitting for Telegram's 4096 char limit
         MAX_LEN = 4000
-        text_to_send = cognitive.response
+        text_to_send = str(getattr(cognitive, "response", "") or "").strip()
+        if not text_to_send:
+            text_to_send = "I received your message, but the model response was empty. Please check your provider settings."
         if len(text_to_send) <= MAX_LEN:
             chunks = [text_to_send]
         else:
