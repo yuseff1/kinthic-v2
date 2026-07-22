@@ -37,7 +37,7 @@ _last_skill_reload_at = 0.0
 # Routes reachable without the web API key. Kept minimal — even read-only
 # routes like /api/graph and /api/metrics can leak memory content, so only
 # a liveness probe is exempt.
-_PUBLIC_PATHS = {"/api/health"}
+_PUBLIC_PATHS = {"/api/health", "/docs", "/redoc", "/openapi.json"}
 
 
 class LocalAuthMiddleware(BaseHTTPMiddleware):
