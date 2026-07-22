@@ -95,8 +95,13 @@ class BrowserSessionManagerTool(BaseTool):
 
         try:
             async with async_playwright() as p:
-                log.info(f"Launching visible browser for {platform} interactive login...")
-                browser = await p.chromium.launch(headless=False)
+                log.info(f"Launching browser for {platform} interactive login...")
+                launch_args = ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
+                try:
+                    browser = await p.chromium.launch(headless=False, args=launch_args)
+                except Exception:
+                    log.warning("Visible browser launch failed (no X11 display server). Falling back to headless mode...")
+                    browser = await p.chromium.launch(headless=True, args=launch_args)
                 
                 if cookie_path.exists():
                     try:
@@ -186,7 +191,10 @@ class BrowserSessionManagerTool(BaseTool):
 
         try:
             async with async_playwright() as p:
-                browser = await p.chromium.launch(headless=True)
+                browser = await p.chromium.launch(
+                    headless=True,
+                    args=["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
+                )
                 if cookie_path.exists():
                     context = await browser.new_context(storage_state=str(cookie_path))
                 else:

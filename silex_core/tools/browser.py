@@ -354,7 +354,10 @@ class BrowserTool(BaseTool):
 
         # Load X (Twitter) session state if present to keep the browser logged in
         cookies_path = Path.home() / ".kinthic" / "x_cookies.json"
-        self.browser = await self.playwright.chromium.launch(headless=True)
+        self.browser = await self.playwright.chromium.launch(
+            headless=True,
+            args=["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
+        )
         
         if cookies_path.exists():
             try:
