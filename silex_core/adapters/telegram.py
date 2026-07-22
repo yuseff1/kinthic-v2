@@ -408,6 +408,36 @@ async def _skills_command(
 _pairing_attempts = {}
 
 
+async def _detect_and_send_files(update: "Update", text: str) -> None:
+    import re
+    # Match absolute paths starting with /
+    paths = re.findall(r'(/[a-zA-Z0-9_\.\-/]+)', text)
+    sent_paths = set()
+    for path in paths:
+        clean_path = path.rstrip(".,;!?`'\"")
+        if clean_path in sent_paths:
+            continue
+        if os.path.isfile(clean_path):
+            sent_paths.add(clean_path)
+            ext = os.path.splitext(clean_path)[1].lower()
+            try:
+                if ext in (".png", ".jpg", ".jpeg", ".gif", ".webp"):
+                    with open(clean_path, "rb") as f:
+                        await update.message.reply_photo(
+                            photo=f,
+                            caption=os.path.basename(clean_path)
+                        )
+                else:
+                    with open(clean_path, "rb") as f:
+                        await update.message.reply_document(
+                            document=f,
+                            filename=os.path.basename(clean_path),
+                            caption=os.path.basename(clean_path)
+                        )
+            except Exception as e:
+                log.error("Failed to send detected file %s: %s", clean_path, e)
+
+
 async def _handle_message(
     update: "Update", context: "ContextTypes.DEFAULT_TYPE"
 ) -> None:
@@ -540,6 +570,9 @@ async def _handle_message(
             for i, chunk in enumerate(chunks):
                 prefix = f"[{i + 1}/{len(chunks)}]\n\n" if len(chunks) > 1 else ""
                 await update.message.reply_text(prefix + chunk)
+
+        # Detect and upload any generated files/images to Telegram chat
+        await _detect_and_send_files(update, text_to_send)
     except Exception as exc:
         log.error("Error processing Telegram message: %s", exc, exc_info=True)
         err_msg = str(exc) or type(exc).__name__
