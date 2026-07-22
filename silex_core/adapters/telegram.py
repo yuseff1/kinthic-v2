@@ -103,8 +103,11 @@ class TelegramAdapter(MessageAdapter):
         _print_security_status()
 
         await app.initialize()
-        app.job_queue.run_repeating(_poll_notifications, interval=5, first=2)
-        app.job_queue.run_repeating(_daily_briefing_job, interval=86400, first=60)
+        if app.job_queue:
+            app.job_queue.run_repeating(_poll_notifications, interval=5, first=2)
+            app.job_queue.run_repeating(_daily_briefing_job, interval=86400, first=60)
+        else:
+            log.warning("Telegram JobQueue is not available. Background notifications/briefings will be disabled.")
         await app.start()
         await app.updater.start_polling(drop_pending_updates=True)
 
