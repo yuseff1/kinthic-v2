@@ -70,7 +70,7 @@ KINTHIC_VENV="$KINTHIC_DIR/runtime/venv"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 PYTHON_VERSION="3.12"
-REPO="openyfai/kinthic"
+REPO="yuseff1/kinthic-v2"
 
 echo -e "Initializing installer paths..."
 mkdir -p "$KINTHIC_BIN"
