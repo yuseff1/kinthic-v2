@@ -497,14 +497,20 @@ async def _handle_message(
                 prefix = f"[{i + 1}/{len(chunks)}]\n\n" if len(chunks) > 1 else ""
                 await update.message.reply_text(prefix + chunk)
     except Exception as exc:
-        log.error("Error processing Telegram message: %s", exc)
+        log.error("Error processing Telegram message: %s", exc, exc_info=True)
+        err_msg = str(exc) or type(exc).__name__
         try:
             await update.message.reply_text(
-                "⚠️ I encountered an internal error while processing your message. "
-                "Please try again in a moment."
+                f"⚠️ Error processing message:\n`{err_msg[:400]}`",
+                parse_mode="Markdown",
             )
         except Exception:
-            pass
+            try:
+                await update.message.reply_text(
+                    f"⚠️ Error processing message: {err_msg[:400]}"
+                )
+            except Exception:
+                pass
 
 
 async def _poll_notifications(context: "ContextTypes.DEFAULT_TYPE") -> None:
