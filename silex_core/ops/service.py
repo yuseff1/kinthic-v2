@@ -86,7 +86,7 @@ def _systemd_unit_content() -> str:
         [Service]
         Type=simple
         WorkingDirectory={home}
-        ExecStart={python} {cli} daemon run
+        ExecStart={cli} daemon run
         Restart=on-failure
         RestartSec=5s
         StandardOutput=append:{daemon_log}
@@ -217,7 +217,6 @@ def _launchagent_plist_content() -> str:
             <string>com.kinthic.daemon</string>
             <key>ProgramArguments</key>
             <array>
-                <string>{python}</string>
                 <string>{cli}</string>
                 <string>daemon</string>
                 <string>run</string>
