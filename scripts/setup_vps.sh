@@ -22,20 +22,35 @@ echo "operation via Telegram, sets up systemd auto-healing services, and"
 echo "securely saves your model API keys."
 echo ""
 
+# Helper to safely prompt interactive input even when piped via curl | bash
+prompt_read() {
+    local prompt="$1"
+    local var_name="$2"
+    if [ -t 0 ]; then
+        read -p "$prompt" val
+    elif [ -c /dev/tty ]; then
+        read -p "$prompt" val < /dev/tty
+    else
+        val=""
+    fi
+    eval "$var_name=\"\$val\""
+}
+
 # Ensure running on Linux
 if [ "$(uname)" != "Linux" ]; then
     echo -e "${YELLOW}Notice: This VPS script is designed for Linux VMs (Ubuntu/Debian/RHEL). Running in configuration generator mode.${NC}"
 fi
 
-# Step 1: System Packages Check / Installation
+# Step 1: System Packages Check / Installation (Ubuntu 22.04 & 24.04 support)
 echo -e "${GREEN}${BOLD}[1/5] Checking System Dependencies...${NC}"
 if command -v apt-get &> /dev/null; then
-    echo "Installing system packages (Python 3.11, Git, Playwright requirements)..."
+    echo "Installing system packages (Python 3.11/3.12, Git, Playwright requirements)..."
     sudo apt-get update -qq
-    sudo apt-get install -y -qq python3 python3-pip python3-venv git curl \
+    sudo apt-get install -y -qq python3 python3-pip python3-venv python3-full python3-dev git curl \
         libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 \
         libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 \
-        libasound2 libpango-1.0-0 libcairo2 || true
+        libpango-1.0-0 libcairo2 || true
+    sudo apt-get install -y -qq libasound2t64 || sudo apt-get install -y -qq libasound2 || true
 elif command -v dnf &> /dev/null; then
     sudo dnf install -y python3 python3-pip git curl || true
 fi
@@ -47,29 +62,29 @@ echo "----------------------------------------------------------------------"
 echo "Press ENTER to skip optional keys."
 echo ""
 
-read -p "📱 Enter TELEGRAM_BOT_TOKEN (from @BotFather): " TELEGRAM_BOT_TOKEN
-read -p "👤 Enter your Telegram User ID (numeric, optional): " ALLOWED_TELEGRAM_USERS
+prompt_read "📱 Enter TELEGRAM_BOT_TOKEN (from @BotFather): " TELEGRAM_BOT_TOKEN
+prompt_read "👤 Enter your Telegram User ID (numeric, optional): " ALLOWED_TELEGRAM_USERS
 echo ""
 
 echo "--- LLM Model Providers & API Keys ---"
-read -p "🔑 OpenAI API Key (OPENAI_API_KEY, optional): " OPENAI_API_KEY
-read -p "🔑 Anthropic API Key (ANTHROPIC_API_KEY, optional): " ANTHROPIC_API_KEY
-read -p "🔑 Gemini / Google API Key (GEMINI_API_KEY, optional): " GEMINI_API_KEY
-read -p "🔑 OpenRouter API Key (OPENROUTER_API_KEY, optional): " OPENROUTER_API_KEY
+prompt_read "🔑 OpenAI API Key (OPENAI_API_KEY, optional): " OPENAI_API_KEY
+prompt_read "🔑 Anthropic API Key (ANTHROPIC_API_KEY, optional): " ANTHROPIC_API_KEY
+prompt_read "🔑 Gemini / Google API Key (GEMINI_API_KEY, optional): " GEMINI_API_KEY
+prompt_read "🔑 OpenRouter API Key (OPENROUTER_API_KEY, optional): " OPENROUTER_API_KEY
 echo ""
 
-read -p "⚙️ Preferred LLM Provider (openai/anthropic/gemini/openrouter, default: openai): " KINTHIC_LLM_PROVIDER
+prompt_read "⚙️ Preferred LLM Provider (openai/anthropic/gemini/openrouter, default: openai): " KINTHIC_LLM_PROVIDER
 KINTHIC_LLM_PROVIDER=${KINTHIC_LLM_PROVIDER:-openai}
 
-read -p "⚙️ Preferred Default Model (eg. gpt-4o, claude-3-5-sonnet-20241022, default: gpt-4o): " KINTHIC_DEFAULT_MODEL
+prompt_read "⚙️ Preferred Default Model (eg. gpt-4o, claude-3-5-sonnet-20241022, default: gpt-4o): " KINTHIC_DEFAULT_MODEL
 KINTHIC_DEFAULT_MODEL=${KINTHIC_DEFAULT_MODEL:-gpt-4o}
 echo ""
 
 echo "--- Optional X (Twitter) API v2 Credentials ---"
-read -p "🐦 X API Key (X_API_KEY, optional): " X_API_KEY
-read -p "🐦 X API Secret (X_API_SECRET, optional): " X_API_SECRET
-read -p "🐦 X Access Token (X_ACCESS_TOKEN, optional): " X_ACCESS_TOKEN
-read -p "🐦 X Access Token Secret (X_ACCESS_TOKEN_SECRET, optional): " X_ACCESS_TOKEN_SECRET
+prompt_read "🐦 X API Key (X_API_KEY, optional): " X_API_KEY
+prompt_read "🐦 X API Secret (X_API_SECRET, optional): " X_API_SECRET
+prompt_read "🐦 X Access Token (X_ACCESS_TOKEN, optional): " X_ACCESS_TOKEN
+prompt_read "🐦 X Access Token Secret (X_ACCESS_TOKEN_SECRET, optional): " X_ACCESS_TOKEN_SECRET
 echo ""
 
 # Step 3: Write Secure Environment Files
@@ -109,6 +124,16 @@ if [ -w "/etc" ] || sudo -n true 2>/dev/null; then
     echo "Synced to /etc/kinthic/kinthic.env for Systemd supervisor."
 fi
 
+# Ensure workspace is cloned if run directly via curl
+TARGET_DIR="${HOME}/kinthic"
+if [ ! -f "pyproject.toml" ]; then
+    if [ ! -d "$TARGET_DIR" ]; then
+        echo "Cloning Kinthic workspace to $TARGET_DIR..."
+        git clone https://github.com/yuseff1/kinthic-v2.git "$TARGET_DIR" || git clone https://github.com/openyfai/kinthic.git "$TARGET_DIR"
+    fi
+    cd "$TARGET_DIR"
+fi
+
 # Step 4: Python Virtualenv & Playwright Setup
 echo ""
 echo -e "${GREEN}${BOLD}[4/5] Installing Python Dependencies & Playwright...${NC}"
@@ -118,13 +143,11 @@ if [ -f "$VENV_DIR/bin/activate" ]; then
     source "$VENV_DIR/bin/activate"
 fi
 
-pip install --upgrade pip -q
-pip install -e . -q || true
+pip install --upgrade pip -q || python3 -m pip install --upgrade pip -q || true
+pip install -e . -q || python3 -m pip install -e . -q || true
 
-if command -v playwright &> /dev/null; then
-    echo "Installing Playwright Chromium binaries..."
-    playwright install chromium --with-deps || true
-fi
+# Install Playwright Chromium binaries
+python3 -m playwright install chromium --with-deps || true
 
 # Step 5: Systemd Supervisor Installation
 echo ""
@@ -132,8 +155,7 @@ echo -e "${GREEN}${BOLD}[5/5] Configuring Systemd Auto-Healing Supervisor...${NC
 
 SERVICE_FILE="/etc/systemd/system/kinthic-supervisor.service"
 if [ -w "/etc/systemd/system" ] || sudo -n true 2>/dev/null; then
-    SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-    REPO_DIR="$(dirname "$SCRIPT_DIR")"
+    REPO_DIR="$(pwd)"
 
     sudo bash -c "cat <<EOF > $SERVICE_FILE
 [Unit]
@@ -159,8 +181,8 @@ WantedBy=multi-user.target
 EOF"
 
     sudo systemctl daemon-reload || true
-    sudo systemctl enable kinthic-supervisor || true
-    echo "Systemd service 'kinthic-supervisor' enabled."
+    sudo systemctl enable --now kinthic-supervisor || true
+    echo "Systemd service 'kinthic-supervisor' enabled and started."
 fi
 
 echo ""
@@ -168,16 +190,9 @@ echo -e "${CYAN}${BOLD}=========================================================
 echo "🎉 KINTHIC VM SETUP & DEPLOYMENT COMPLETE!"
 echo "======================================================================"
 echo -e "${NC}"
-echo -e "1. ${BOLD}Start Kinthic Service:${NC}"
-echo "   sudo systemctl start kinthic-supervisor"
-echo ""
-echo -e "2. ${BOLD}Check Status:${NC}"
+echo -e "1. ${BOLD}Service Status:${NC}"
 echo "   sudo systemctl status kinthic-supervisor"
 echo ""
-echo -e "3. ${BOLD}Telegram Bot Connection:${NC}"
+echo -e "2. ${BOLD}Telegram Bot Connection:${NC}"
 echo "   Send /start to your bot on Telegram from your phone!"
-echo "   If pairing is required, run: kinthic telegram pair"
-echo ""
-echo -e "4. ${BOLD}X Session Cookies (Optional):${NC}"
-echo "   Copy your x_cookies.json into ~/.kinthic/browser_sessions/x_cookies.json"
 echo ""
