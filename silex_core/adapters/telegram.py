@@ -42,6 +42,8 @@ def _env_allowlist() -> list[int]:
 def telegram_user_allowed(user_id: int) -> bool:
     if telegram_public_mode_enabled():
         return True
+    if settings_store.is_telegram_user_allowed(user_id):
+        return True
     return user_id in _env_allowlist()
 
 
