@@ -16,6 +16,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from silex_core.runtime.settings import RuntimeSettingsStore
 
+from dotenv import load_dotenv
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 KINTHIC_HOME = Path.home() / ".kinthic"
 
