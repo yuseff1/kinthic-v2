@@ -85,7 +85,17 @@ mkdir -p "$KINTHIC_DIR/plugins/skills"
 mkdir -p "$KINTHIC_DIR/registry"
 mkdir -p "$KINTHIC_DIR/logs/traces"
 
-# ── 3. Minimal host requirements (curl + git only) ───────────────────────────
+# ── 3. Minimal host requirements & system package setup ───────────────────────
+if command -v apt-get &>/dev/null; then
+    echo -e "Installing system dependencies..."
+    sudo apt-get update -qq || true
+    sudo apt-get install -y -qq python3 python3-pip python3-venv python3-full python3-dev git curl \
+        libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 \
+        libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 \
+        libpango-1.0-0 libcairo2 || true
+    sudo apt-get install -y -qq libasound2t64 || sudo apt-get install -y -qq libasound2 || true
+fi
+
 MISSING=()
 if ! command -v curl &>/dev/null; then
     MISSING+=("curl")
