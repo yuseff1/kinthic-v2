@@ -1472,8 +1472,8 @@ def run_web() -> None:
 
     # Fallback for server installs (VM / systemd service)
     print("🚀 Starting Kinthic Web Dashboard & Gateway Service...")
-    from scripts.cli import run_daemon_start
-    run_daemon_start()
+    from scripts.cli import run_start
+    run_start()
     print(f"\n[+] Kinthic Web Dashboard & Gateway is active at http://{gateway_host()}:{gateway_port()}")
     print(f"    Open http://{gateway_host()}:{gateway_port()} in your web browser.")
 
