@@ -180,7 +180,9 @@ async def lifespan(app: FastAPI):
         log.error("Failed to mount MCP server: %s", exc)
 
     # 3. Start Omnichannel Adapters
-    if os.getenv("TELEGRAM_BOT_TOKEN"):
+    tg_token = os.getenv("TELEGRAM_BOT_TOKEN") or RuntimeSettingsStore().get_secret("telegram_bot_token")
+    if tg_token:
+        os.environ["TELEGRAM_BOT_TOKEN"] = tg_token
         try:
             from silex_core.adapters.telegram import TelegramAdapter
 

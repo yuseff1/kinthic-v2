@@ -92,6 +92,7 @@ def _systemd_unit_content() -> str:
         StandardOutput=append:{daemon_log}
         StandardError=append:{daemon_log}
 
+        EnvironmentFile=-%h/.kinthic/.env
         Environment=HOME={home}
         Environment=PATH={path_env}
 

@@ -16,14 +16,15 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from silex_core.runtime.settings import RuntimeSettingsStore
 
-from dotenv import load_dotenv
-
-# ---------------------------------------------------------------------------
-# Kinthic Home paths — single source of truth for all runtime data
-# ---------------------------------------------------------------------------
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 KINTHIC_HOME = Path.home() / ".kinthic"
+
+# Auto-load environment variables from ~/.kinthic/.env if present
+_env_file = KINTHIC_HOME / ".env"
+if _env_file.exists():
+    load_dotenv(_env_file)
+else:
+    load_dotenv()
 SILEX_DB = KINTHIC_HOME / "storage" / "silex.db"
 KINTHIC_CONFIG = KINTHIC_HOME / "config" / "rules.json"
 KINTHIC_SECRETS = KINTHIC_HOME / "config" / "secrets.json"
