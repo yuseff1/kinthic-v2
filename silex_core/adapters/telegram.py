@@ -111,6 +111,41 @@ class TelegramAdapter(MessageAdapter):
         # Keep app reference to avoid GC
         self._app = app
 
+    async def shutdown(self) -> None:
+        """Gracefully stop the Telegram bot updater."""
+        if hasattr(self, "_app") and self._app:
+            try:
+                await self._app.updater.stop()
+                await self._app.stop()
+                await self._app.shutdown()
+            except Exception as e:
+                log.warning("Error during Telegram app shutdown: %s", e)
+        await super().shutdown()
+
+    def run(self) -> None:
+        """Blocking entry point for standalone CLI execution."""
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        async def main():
+            await self.startup()
+            await self.start_async(self.loop)
+            try:
+                while True:
+                    await asyncio.sleep(3600)
+            except asyncio.CancelledError:
+                pass
+            finally:
+                await self.shutdown()
+                
+        try:
+            loop.run_until_complete(main())
+        except KeyboardInterrupt:
+            pass
+        finally:
+            loop.close()
+
 
 async def _send_pending_approvals(update: "Update", loop: Any) -> None:
     approvals = await loop.tool_registry.get_pending_approvals()
