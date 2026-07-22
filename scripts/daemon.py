@@ -62,8 +62,12 @@ def _webhook_url_is_safe(url: str) -> bool:
 def run_gateway_worker() -> None:
     """Entry point for the Omnichannel Gateway (FastAPI server + Adapters)."""
     try:
+        from silex_core.utils.config import KINTHIC_HOME, gateway_host, gateway_port
+        from dotenv import load_dotenv
+
+        if (KINTHIC_HOME / ".env").exists():
+            load_dotenv(KINTHIC_HOME / ".env")
         import uvicorn
-        from silex_core.utils.config import gateway_host, gateway_port
 
         # We pass the import string so uvicorn can run it
         uvicorn.run(
