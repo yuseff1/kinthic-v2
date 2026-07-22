@@ -73,6 +73,7 @@ def build_parser() -> argparse.ArgumentParser:
     daemon_sub = daemon_parser.add_subparsers(dest="daemon_command")
     daemon_sub.add_parser("start", help="Start the supervisor in the background")
     daemon_sub.add_parser("stop", help="Stop the background supervisor")
+    daemon_sub.add_parser("restart", help="Restart the background supervisor")
     daemon_sub.add_parser("status", help="Check if the daemon is running")
     daemon_sub.add_parser("logs", help="Tail the daemon logs")
     daemon_sub.add_parser("run", help="Run the supervisor in the foreground")
@@ -1673,6 +1674,15 @@ def main() -> None:
             run_start()
         elif args.daemon_command == "stop":
             run_stop()
+        elif args.daemon_command in ("restart", "reload"):
+            from silex_core.ops.service import is_service_installed, stop_service, start_service
+            if is_service_installed():
+                stop_service()
+                ok, msg = start_service()
+                print(msg)
+            else:
+                run_stop()
+                run_start()
         elif args.daemon_command == "status":
             run_daemon_status()
         elif args.daemon_command == "logs":

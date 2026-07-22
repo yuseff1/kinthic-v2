@@ -178,3 +178,41 @@ class LoopWrapper:
             }
         except Exception:
             return {"totals": {}, "models": []}
+
+    async def get_session_info(self) -> dict:
+        try:
+            mem_count = await self.db.fetch_one("SELECT COUNT(*) as c FROM memories")
+            memories = mem_count["c"] if mem_count else 0
+        except Exception:
+            memories = 0
+        try:
+            goals_count = await self.db.fetch_one("SELECT COUNT(*) as c FROM goals WHERE status IN ('pending', 'active')")
+            goals = goals_count["c"] if goals_count else 0
+        except Exception:
+            goals = 0
+        try:
+            turns_count = await self.db.fetch_one("SELECT COUNT(*) as c FROM session_turns")
+            turns = turns_count["c"] if turns_count else 0
+        except Exception:
+            turns = 0
+        try:
+            nodes_count = await self.db.fetch_one("SELECT COUNT(*) as c FROM epistemic_nodes")
+            nodes = nodes_count["c"] if nodes_count else 0
+            edges_count = await self.db.fetch_one("SELECT COUNT(*) as c FROM epistemic_edges")
+            edges = edges_count["c"] if edges_count else 0
+        except Exception:
+            nodes, edges = 0, 0
+        return {
+            "total_memories": memories,
+            "active_goals": goals,
+            "total_turns": turns,
+            "graph_nodes": nodes,
+            "graph_edges": edges,
+        }
+
+    async def get_all_sessions(self) -> list:
+        try:
+            rows = await self.db.fetch_all("SELECT * FROM sessions ORDER BY started_at DESC LIMIT 50")
+            return [dict(r) for r in (rows or [])]
+        except Exception:
+            return []
