@@ -122,7 +122,7 @@ UI_URL="https://github.com/$REPO/releases/latest/download/kinthic-ui-$UI_SUFFIX"
 UV_PID=$!
 
 (
-    if curl -L -sSf -o "$KINTHIC_BIN/kinthic-ui" "$UI_URL"; then
+    if curl -L -sSf -o "$KINTHIC_BIN/kinthic-ui" "$UI_URL" 2>/dev/null; then
         echo "ui_ok" > "$KINTHIC_BIN/.ui_download_status"
     else
         echo "ui_fail" > "$KINTHIC_BIN/.ui_download_status"
@@ -154,7 +154,7 @@ echo -e "${BLUE}Installing managed Python ${PYTHON_VERSION} via uv...${NC}"
 "$KINTHIC_BIN/uv" python install "$PYTHON_VERSION"
 
 echo -e "${BLUE}Configuring isolated Python virtual environment...${NC}"
-"$KINTHIC_BIN/uv" venv "$KINTHIC_VENV" --python "$PYTHON_VERSION"
+"$KINTHIC_BIN/uv" venv "$KINTHIC_VENV" --python "$PYTHON_VERSION" --allow-existing
 
 # uv pip does not auto-detect a venv created at a custom path — target it explicitly.
 UV_PIP=( "$KINTHIC_BIN/uv" pip install --python "$KINTHIC_VENV/bin/python" --compile-bytecode )
