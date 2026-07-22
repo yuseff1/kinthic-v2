@@ -54,6 +54,10 @@ class LocalAuthMiddleware(BaseHTTPMiddleware):
         if (
             not gateway_auth_required()
             or request.url.path in _PUBLIC_PATHS
+            or request.url.path == "/"
+            or request.url.path.startswith("/_next")
+            or request.url.path.startswith("/static")
+            or request.url.path == "/favicon.ico"
             or request.method == "OPTIONS"
         ):
             return await call_next(request)
@@ -876,6 +880,22 @@ async def save_settings(req: Request) -> Dict[str, Any]:
     except Exception as e:
         log.error(f"Failed to save settings: {e}")
         return {"error": str(e)}
+
+
+# Mount pre-built visual Web Dashboard static assets if present
+try:
+    from fastapi.staticfiles import StaticFiles
+    from silex_core.utils.config import KINTHIC_HOME, PROJECT_ROOT
+
+    _dashboard_static = PROJECT_ROOT / "kinthic-dashboard" / "out"
+    if not _dashboard_static.exists():
+        _dashboard_static = KINTHIC_HOME / "dashboard"
+
+    if _dashboard_static.exists():
+        app.mount("/", StaticFiles(directory=str(_dashboard_static), html=True), name="dashboard")
+        log.info(f"Mounted visual Web Dashboard static files from {_dashboard_static}")
+except Exception as _exc:
+    log.warning(f"Could not mount static Web Dashboard: {_exc}")
 
 
 if __name__ == "__main__":

@@ -1434,52 +1434,48 @@ def run_web() -> None:
     import subprocess
     import sys
     import os
-    from silex_core.utils.config import PROJECT_ROOT, gateway_host, gateway_port
+    from silex_core.utils.config import PROJECT_ROOT, gateway_host, gateway_port, KINTHIC_HOME
     from silex_core.runtime.settings import RuntimeSettingsStore
 
     dashboard_path = PROJECT_ROOT / "kinthic-dashboard"
-    if not dashboard_path.exists():
-        print(
-            "Dashboard is not bundled in this install (dev checkout only).\n"
-            "On a server, run:\n"
-            "  kinthic daemon install\n"
-            f"  ssh -N -L {gateway_port()}:{gateway_host()}:{gateway_port()} user@your-host\n"
-            f"Then open http://127.0.0.1:{gateway_port()}/api/health"
-        )
+    if dashboard_path.exists() and (dashboard_path / "package.json").exists():
+        api_key = RuntimeSettingsStore().ensure_web_api_key()
+        api_base = f"http://{gateway_host()}:{gateway_port()}"
+
+        print("Starting Kinthic Dashboard (Backend + Frontend)...")
+        api_proc = None
+        ui_proc = None
+        try:
+            api_proc = subprocess.Popen(
+                [sys.executable, str(PROJECT_ROOT / "scripts" / "dashboard_api.py")]
+            )
+            npm_cmd = "npm.cmd" if os.name == "nt" else "npm"
+            ui_env = {
+                **os.environ,
+                "NEXT_PUBLIC_KINTHIC_API_KEY": api_key,
+                "NEXT_PUBLIC_KINTHIC_API_BASE": api_base,
+            }
+            ui_proc = subprocess.Popen(
+                [npm_cmd, "run", "dev"], cwd=str(dashboard_path), env=ui_env
+            )
+
+            print(f"\n[+] Dashboard is running against {api_base} (Press Ctrl+C to stop).")
+            ui_proc.wait()
+        except KeyboardInterrupt:
+            print("\nStopping dashboard...")
+        finally:
+            if api_proc:
+                api_proc.terminate()
+            if ui_proc:
+                ui_proc.terminate()
         return
 
-    # Auto-provision (or reuse) the local web API key and hand it to the
-    # Next.js dev server so the dashboard can authenticate to the gateway
-    # without any manual setup step.
-    api_key = RuntimeSettingsStore().ensure_web_api_key()
-    api_base = f"http://{gateway_host()}:{gateway_port()}"
-
-    print("Starting Kinthic Dashboard (Backend + Frontend)...")
-    api_proc = None
-    ui_proc = None
-    try:
-        api_proc = subprocess.Popen(
-            [sys.executable, str(PROJECT_ROOT / "scripts" / "dashboard_api.py")]
-        )
-        npm_cmd = "npm.cmd" if os.name == "nt" else "npm"
-        ui_env = {
-            **os.environ,
-            "NEXT_PUBLIC_KINTHIC_API_KEY": api_key,
-            "NEXT_PUBLIC_KINTHIC_API_BASE": api_base,
-        }
-        ui_proc = subprocess.Popen(
-            [npm_cmd, "run", "dev"], cwd=str(dashboard_path), env=ui_env
-        )
-
-        print(f"\n[+] Dashboard is running against {api_base} (Press Ctrl+C to stop).")
-        ui_proc.wait()
-    except KeyboardInterrupt:
-        print("\nStopping dashboard...")
-    finally:
-        if api_proc:
-            api_proc.terminate()
-        if ui_proc:
-            ui_proc.terminate()
+    # Fallback for server installs (VM / systemd service)
+    print("🚀 Starting Kinthic Web Dashboard & Gateway Service...")
+    from scripts.cli import run_daemon_start
+    run_daemon_start()
+    print(f"\n[+] Kinthic Web Dashboard & Gateway is active at http://{gateway_host()}:{gateway_port()}")
+    print(f"    Open http://{gateway_host()}:{gateway_port()} in your web browser.")
 
 
 def run_daemon_status() -> None:
