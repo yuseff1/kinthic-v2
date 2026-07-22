@@ -201,6 +201,14 @@ if [ -f "$REPO_ROOT/registry/catalog.yaml" ]; then
     echo -e "  Copied bundled ${GREEN}registry/catalog.yaml${NC}"
 fi
 
+# Seed bundled plugins into ~/.kinthic/plugins
+PLUGINS_SRC="$REPO_ROOT/plugins"
+if [ -d "$PLUGINS_SRC" ]; then
+    mkdir -p "$KINTHIC_DIR/plugins/tools" "$KINTHIC_DIR/plugins/skills"
+    cp -r "$PLUGINS_SRC"/* "$KINTHIC_DIR/plugins/" 2>/dev/null || true
+    echo -e "  Seeded bundled plugins into ${GREEN}$KINTHIC_DIR/plugins/${NC}"
+fi
+
 # Seed bundled skills from checkout
 SKILLS_SRC="$REPO_ROOT/skills"
 if [ -d "$SKILLS_SRC" ]; then

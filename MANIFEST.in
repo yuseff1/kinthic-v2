@@ -1,0 +1,4 @@
+recursive-include plugins *.yaml *.yml *.json *.md
+recursive-include silex_core *.yaml *.yml *.json *.md
+recursive-include silex_engine *.yaml *.yml *.json *.md *.sql
+include registry/*.yaml

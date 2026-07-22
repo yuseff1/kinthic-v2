@@ -83,6 +83,9 @@ build-backend = "setuptools.build_meta"
 include-package-data = true
 py-modules = []
 
+[tool.setuptools.package-data]
+"*" = ["*.yaml", "*.yml", "*.json", "*.md", "*.txt", "*.sql"]
+
 [tool.setuptools.packages.find]
 include = ["silex_engine*", "silex_core*", "agent*", "scripts*", "plugins*"]
 exclude = ["kinthic-dashboard*", "kinthic-ink-ui*", "tests*", "benchmarks*"]
