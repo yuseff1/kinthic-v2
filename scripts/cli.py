@@ -1484,7 +1484,19 @@ def run_web() -> None:
 def run_daemon_status() -> None:
     import json
     import os
+    import subprocess
     from silex_core.utils.config import KINTHIC_DAEMON_LOCK
+
+    # Check systemd / OS service status first
+    try:
+        from silex_core.ops.service import is_service_installed, _os
+        if is_service_installed() and _os() == "Linux":
+            res = subprocess.run(["systemctl", "--user", "is-active", "kinthic.service"], capture_output=True, text=True)
+            if res.stdout.strip() == "active":
+                print("Kinthic daemon is RUNNING (via systemd user service).")
+                return
+    except Exception:
+        pass
 
     lock_path = KINTHIC_DAEMON_LOCK
     if not lock_path.exists():
