@@ -50,17 +50,25 @@ class LoopWrapper:
         self.skill_loader = SkillLoader(vector_store=self.memory_store.vs)
         self.skill_loader.load_all()
 
-        self.tool_registry = ToolRegistry()
+        from silex_core.runtime.settings import RuntimeSettingsStore
+        self.llm = build_provider(settings_store=RuntimeSettingsStore())
+
+        from silex_core.memory.file_indexer import FileIndexer
+        self.file_indexer = FileIndexer(vector_store=self.memory_store.vs)
+
+        self.tool_registry = ToolRegistry(
+            vector_store=self.memory_store.vs,
+            db=self.db,
+            session_manager=self.session_manager,
+            memory_store=self.memory_store,
+            llm=self.llm,
+            file_indexer=self.file_indexer,
+        )
         self.tool_registry.register_skill_tools(self.skill_loader)
         self.context_builder = ContextBuilder(self.session_manager, self.graph, self.memory_store, self.skill_loader, tool_registry=self.tool_registry)
         self.tool_dispatcher = ToolDispatcher(self.tool_registry)
         self.memory_writer = MemoryWriter(self.admission_controller, self.memory_store, self.graph, self.session_manager)
         self.stop_evaluator = StopEvaluator(max_turns=40)
-        
-        from silex_core.runtime.settings import RuntimeSettingsStore
-        
-        # Real LLM
-        self.llm = build_provider(settings_store=RuntimeSettingsStore())
         
         self.session_id = str(uuid.uuid4())
         
