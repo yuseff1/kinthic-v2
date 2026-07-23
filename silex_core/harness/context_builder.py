@@ -17,10 +17,13 @@ class ContextBuilder:
         """
         Builds the system prompt and context dynamically.
         """
+        from datetime import datetime
+        current_time_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         identity = (
             "You are Kinthic, a persistent and highly capable personal AI agent.\n"
             "You have a causal memory graph and you reason across sessions.\n"
             "When you take actions, explain your reasoning and note any new facts you learned.\n"
+            f"Current UTC Time: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')} (Local Time: {current_time_str})\n"
         )
         
         # Pull history

@@ -66,8 +66,34 @@ class ToolDispatcher:
                 if not tool:
                     raise ValueError(f"Tool {name} not found in registry.")
                 
+                # Emit tool start progress
+                if getattr(turn_context, "event_emitter", None):
+                    try:
+                        await turn_context.event_emitter({
+                            "type": "tool_start",
+                            "data": {
+                                "tool_name": name,
+                                "arguments": arguments
+                            }
+                        })
+                    except Exception:
+                        pass
+
                 # Execute (assuming all tools are async for now, or handle sync)
                 result = await tool.execute(**arguments)
+                
+                # Emit tool end progress
+                if getattr(turn_context, "event_emitter", None):
+                    try:
+                        await turn_context.event_emitter({
+                            "type": "tool_end",
+                            "data": {
+                                "tool_name": name,
+                                "result": result
+                            }
+                        })
+                    except Exception:
+                        pass
                 
                 observations.append({
                     "tool": name,

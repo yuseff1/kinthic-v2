@@ -117,6 +117,7 @@ class LoopWrapper:
         
         # Fire event emitters if passed
         event_emitter = kwargs.get("event_emitter")
+        turn.event_emitter = event_emitter
         if event_emitter:
             await event_emitter({"type": "thinking", "data": "Processing with V2 Harness..."})
             

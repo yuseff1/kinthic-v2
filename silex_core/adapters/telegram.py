@@ -445,6 +445,34 @@ async def _handle_message(
         return
     user_text = update.message.text or update.message.caption or ""
 
+    # Process shared locations (e.g. from mobile phone)
+    if update.message.location:
+        loc = update.message.location
+        lat = loc.latitude
+        lon = loc.longitude
+        import urllib.request
+        import json
+        try:
+            url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={lat}&lon={lon}"
+            req = urllib.request.Request(
+                url,
+                headers={'User-Agent': 'KinthicTelegramBot/2.0'}
+            )
+            with urllib.request.urlopen(req, timeout=5) as response:
+                data = json.loads(response.read().decode())
+                address = data.get("display_name", f"Coordinates: {lat}, {lon}")
+                loc_msg = f"[Location Update: User shared their current location: {address} (Coordinates: {lat}, {lon})]"
+                if user_text:
+                    user_text = f"{loc_msg}\n\n{user_text}"
+                else:
+                    user_text = loc_msg
+        except Exception as e:
+            loc_msg = f"[Location Update: User shared coordinates: {lat}, {lon}]"
+            if user_text:
+                user_text = f"{loc_msg}\n\n{user_text}"
+            else:
+                user_text = loc_msg
+
     user_id = update.effective_user.id
 
     # Rate limit un-paired users (max 5 attempts per 60s)
@@ -520,11 +548,47 @@ async def _handle_message(
                 break
             await asyncio.sleep(4)
 
+    status_msg = None
+    last_status_text = ""
+
+    async def telegram_event_emitter(event: dict):
+        nonlocal status_msg, last_status_text
+        text = None
+        if event["type"] == "thinking":
+            text = "🤔 Kinthic is starting to think..."
+        elif event["type"] == "tool_start":
+            tool_name = event["data"]["tool_name"]
+            if tool_name == "web_search":
+                text = "🔍 Searching the web..."
+            elif tool_name == "browser":
+                text = "🌐 Launching web browser..."
+            elif tool_name == "post_x_status":
+                text = "✍️ Posting update to X/Twitter..."
+            elif tool_name == "rag_index":
+                text = "📥 Indexing workspace files..."
+            elif tool_name == "rag_query":
+                text = "🧠 Querying knowledge base..."
+            else:
+                text = f"🔧 Running tool: {tool_name}..."
+        elif event["type"] == "tool_end":
+            tool_name = event["data"]["tool_name"]
+            text = f"✅ Finished running: {tool_name}"
+
+        if text and text != last_status_text:
+            last_status_text = text
+            try:
+                if status_msg is None:
+                    status_msg = await update.message.reply_text(text)
+                else:
+                    await status_msg.edit_text(text)
+            except Exception as edit_err:
+                log.warning("Failed to update status message: %s", edit_err)
+
     stop_typing = asyncio.Event()
     typing_task = asyncio.create_task(_keep_typing(context.bot, chat_id, stop_typing))
     try:
         try:
-            cognitive = await loop.process(user_text, images=images)
+            cognitive = await loop.process(user_text, event_emitter=telegram_event_emitter, images=images)
         finally:
             stop_typing.set()
             typing_task.cancel()
@@ -560,14 +624,34 @@ async def _handle_message(
                 chunks.append(current_chunk.strip())
 
         try:
-            for i, chunk in enumerate(chunks):
+            # If we had a status message, we edit the first chunk into it to keep history clean!
+            first_chunk_idx = 0
+            if status_msg is not None:
+                first_chunk = chunks[0]
+                prefix = f"[1/{len(chunks)}]\n" if len(chunks) > 1 else ""
+                try:
+                    await status_msg.edit_text(prefix + first_chunk, parse_mode="Markdown")
+                    first_chunk_idx = 1
+                except Exception as first_parse_err:
+                    log.warning("Markdown parse failed on edit, trying plain text: %s", first_parse_err)
+                    try:
+                        await status_msg.edit_text(prefix + first_chunk)
+                        first_chunk_idx = 1
+                    except Exception as fallback_err:
+                        log.warning("Failed to edit status message, sending new: %s", fallback_err)
+                        # Keep first_chunk_idx = 0 to let it send as new message
+
+            for i in range(first_chunk_idx, len(chunks)):
+                chunk = chunks[i]
                 prefix = f"[{i + 1}/{len(chunks)}]\n" if len(chunks) > 1 else ""
                 await update.message.reply_text(prefix + chunk, parse_mode="Markdown")
         except Exception as parse_error:
             log.error(
-                "Markdown parse failed, falling back to plain text: %s", parse_error
+                "Markdown parse failed on new chunk, falling back to plain text: %s", parse_error
             )
-            for i, chunk in enumerate(chunks):
+            # Send remaining chunks as plain text if it failed
+            for i in range(first_chunk_idx, len(chunks)):
+                chunk = chunks[i]
                 prefix = f"[{i + 1}/{len(chunks)}]\n\n" if len(chunks) > 1 else ""
                 await update.message.reply_text(prefix + chunk)
 
